@@ -1,0 +1,19 @@
+{
+  "name": "poalabmanager",
+  "version": "1.0.0",
+  "description": "Documentação de projeto DIY",
+  "private": true,
+  "scripts": {
+    "updates": "meteor update && meteor npm install && npm install",
+    "installs": "meteor npm install --save @babel/runtime",
+    "removes": "meteor remove autopublish insecure",
+    "start": "meteor --release 1.6.1.1",
+    "build-start": "npm run updates && npm run installs && npm run start"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.46",
+    "meteor-node-stubs": "^0.3.2"
+  },
+  "author": "Gabriel Minatto",
+  "license": "ISC"
+}

@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+
+  mongo:
+    image: mongo:latest
+    command: mongod --storageEngine=wiredTiger
+    container_name: tcc-mongo
+    networks:
+      - tcc-network
+
+  meteor:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    image: minatto/tcc
+    container_name: tcc-meteor
+    #command: [ "run", "start" ] ##uncoment to avoid update in every start
+    volumes:
+      - ./:/app
+    ports:
+      - "80:3000"
+    environment:
+      - ROOT_URL=http://localhost
+      - MONGO_URL=mongodb://mongo:27017/meteor
+    depends_on:
+      - mongo
+    networks:
+      - tcc-network
+
+networks:
+  tcc-network:
+    driver: bridge
