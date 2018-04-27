@@ -1,0 +1,17 @@
+<template name="publicLayout">
+
+    {{> pageHeader }}
+
+    <div id="public-menu">
+        {{> publicMenu }}
+    </div>
+
+    <div id="public-content">
+        {{> Template.dynamic template=content }}
+    </div>
+
+    <div id="public-footer">
+        {{> publicFooter }}
+    </div>
+
+</template>

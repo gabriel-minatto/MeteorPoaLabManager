@@ -1,0 +1,17 @@
+<template name="mainLayout">
+
+    {{> pageHeader }}
+
+    <div id="page-menu">
+        {{> pageMenu }}
+    </div>
+
+    <div id="page-content">
+         {{> Template.dynamic template=content }}
+    </div>
+
+    <div id="page-footer">
+        {{> pageFooter }}
+    </div>
+
+</template>
