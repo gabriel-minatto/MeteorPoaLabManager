@@ -3,7 +3,11 @@
     {{> pageHeader }}
 
     <div id="page-menu">
-        {{> pageMenu }}
+        {{ #if isLoggedIn }}
+            {{> pageMenu }}
+        {{ else }}
+            {{> publicMenu }}
+        {{ /if }}
     </div>
 
     <div id="page-content">
