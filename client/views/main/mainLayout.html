@@ -15,7 +15,11 @@
     </div>
 
     <div id="page-footer">
-        {{> pageFooter }}
+        {{ #if isLoggedIn }}
+            {{> pageFooter }}
+        {{ else }}
+            {{> publicFooter }}
+        {{ /if }}
     </div>
 
 </template>
