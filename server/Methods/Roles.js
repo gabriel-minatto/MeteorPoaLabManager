@@ -1,16 +1,30 @@
 Meteor.methods({
 
-    assignUserToRole(userId, roles) {
+    assignUserToRole(roles, user = false) {
 
-        if (!userId || !roles) return;
+        if (!roles) return;
 
-        Roles.addUsersToRoles(userId, roles);
+        if (!user) user = Meteor.user();
+
+        Roles.addUsersToRoles(user, roles);
     },
 
-    checkUserIsInRole(userId, roles) {
+    checkUserIsInRoles(roles, user = false) {
 
-        if (!userId || !roles) return;
+        if (!roles) return;
 
-        return Roles.userIsInRole(userId, roles);
+        if(!user) user = Meteor.user();
+
+        roles = [].concat(roles);
+
+        return Roles.userIsInRole(user, roles);
+    },
+
+    getMyUserRecord() {
+        var userRec = {};
+        if (Meteor.userId()) {
+            userRec = Meteor.user();
+        }
+        return userRec;
     }
 });

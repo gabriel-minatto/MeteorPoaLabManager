@@ -1,6 +1,33 @@
+Template.pageMenu.onCreated(function() {
+
+    this.actualSection = new ReactiveVar('home');
+});
+
+Template.pageMenu.helpers({
+
+    getNavBarLinks() {
+
+        return [
+            ['home', 'Home'],
+            ['machines', 'Máquinas'],
+            ['projetos', 'Projetos'],
+            ['sair', 'Sair']
+        ];
+    },
+
+    compareWithActualSection(routeName) {
+
+        return Template.instance().actualSection.get() == routeName;
+    }
+});
+
 Template.pageMenu.events({
 
-    'click #logoutBtn': function(){
-        AccountsTemplates.logout();
+    'click .pageMenuLink': function (e, t) {
+        let event = document.createEvent('HTMLEvents');
+        event.initEvent('click', true, false);
+        document.querySelector('.navbar-toggler').dispatchEvent(event);
+
+        t.actualSection.set(e.target.dataset.routename);
     }
 });
