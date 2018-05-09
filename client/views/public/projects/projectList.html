@@ -1,0 +1,85 @@
+<template name="projectList">
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-3">
+                <h1>Projetos</h1>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                <div class="list-group">
+                    <a href="#" data-filter="false" class="list-group-item projectFilter">Todos</a>
+                    <a href="#" data-filter="true" class="list-group-item projectFilter mb-4">Meus Projetos</a>
+                </div>
+                {{ #if checkUserIsInRole 'default-group' and isLoggedIn }}
+                    <div class="text-center mb-4">
+                        <a href="{{ pathFor 'project-new' }}" class="btn btn-success">Novo Projeto</a>
+                    </div>
+                {{ /if }}
+
+            </div>
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-9">
+
+                <div class="row">
+
+                    {{ #each getProjects }}
+                        <div class="col-lg-6 mb-4 animated fadeInRight">
+                            <div class="card h-100">
+                                <a href="{{ pathFor 'project-see' id=this._id }}">
+                                    {{ #with getProjectCover this.coverId }}
+                                        <img class="card-img-top" src="{{ this.url store='projectCoversStore' }}" alt="">
+                                    {{ /with }}
+                                </a>
+                                <div class="card-body">
+                                    <h4 class="card-title">
+                                        <a href="{{ pathFor 'project-see' id=this._id }}">
+                                            {{ this.title }}
+                                        </a>
+                                    </h4>
+                                    <p class="card-text">
+                                        {{ formatDescription this.description }}
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-xl-7">
+                                            <span class=" align-middle">
+                                                <h5>
+                                                    {{ #if this.public }}
+                                                    Publicado
+                                                    {{ else }}
+                                                    Privado
+                                                    {{ /if }}
+                                                </h5>
+                                            </span>
+                                        </div>
+                                        {{ #if checkUserIsInRole 'admin' }}
+                                            <div class="col-xl-5">
+                                                <a href="{{ pathFor 'edit-project' id=this._id}}">
+                                                    <button class="btn btn-default">Editar</button>
+                                                </a>
+                                            </div>
+                                        {{ /if }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{ /each }}
+
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+</template>
