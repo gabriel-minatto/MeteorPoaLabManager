@@ -1,0 +1,77 @@
+<template name="machineSee">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 m-auto">
+                {{ #with getMachine }}
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-xl-10" style="display: inherit;">
+                                    <h2>{{ this.title }}&nbsp;</h2>
+                                    <small>
+                                        {{ #if this.available }}
+                                            Disponível&nbsp;
+                                            <div class="ball green-ball float-right" alt="Disponível"></div>
+                                        {{ else }}
+                                            Indisponível&nbsp;
+                                            <div class="ball red-ball float-right" alt="Indisponível"></div>
+                                        {{ /if }}
+                                    </small>
+                                </div>
+                                <div class="col-xl-2">
+                                    <a href="{{ pathFor '/maquinas '}}">
+                                        <button class="btn btn-default float-right">Voltar</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-6">
+                                    <div class="row">
+                                        <div class="col-xl-12">
+                                            {{ #with getMachineImage this.imageId }}
+                                                <img class="card-img-top" src="{{ this.url store='machineImagesStore' }}">
+                                            {{ /with }}
+                                        </div>
+                                        <div class="col-xl-12 text-center mt-4">
+                                            {{ #with getMachineDocs this.manualId }}
+                                                <a class="btn btn-info" href="{{ this.url store='machineManualsStore' }}" download="file">
+                                                    Download Doc's
+                                                </a>
+                                            {{ /with }}
+                                            <a href="#" class="btn btn-success">Reservas</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6">
+                                    <p>{{ this.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {{ /with }}
+            </div>
+        </div>
+    </div>
+
+    <style>
+
+        .ball{
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+        }
+
+        .red-ball{
+            background-color: red;
+        }
+
+        .green-ball{
+            background-color: green;
+        }
+
+    </style>
+
+</template>

@@ -4,41 +4,61 @@
 <div class="container">
 
     <div class="row">
+        <div class="col-lg-3">
+            <h1>Máquinas</h1>
+        </div>
+    </div>
+    <div class="row">
 
         <div class="col-lg-3">
 
-            <h1 class="my-4">Máquinas</h1>
             <div class="list-group">
                 <a href="#" data-filter="" class="list-group-item machineFilter">Todas</a>
                 <a href="#" data-filter="available" class="list-group-item machineFilter">Disponíveis</a>
-                <a href="#" data-filter="unavailable" class="list-group-item machineFilter">Indisponíveis</a>
-                {{ #if checkUserIsInRole 'admin' }}
-                    <a href="{{ pathFor 'new-machine' }}" class="btn btn-success">Cadastrar Nova</a>
-                {{ /if }}
+                <a href="#" data-filter="unavailable" class="list-group-item machineFilter mb-4">Indisponíveis</a>
             </div>
+            {{ #if checkUserIsInRole 'admin' }}
+                <div class="text-center">
+                    <a href="{{ pathFor 'new-machine' }}" class="btn btn-success">Cadastrar Nova</a>
+                    <a href="{{ pathFor 'reserves' }}" class="btn btn-info">Reservas</a>
+                </div>
+            {{ /if }}
 
         </div>
         <!-- /.col-lg-3 -->
 
         <div class="col-lg-9">
 
-            <div class="row my-4">
+            <div class="row">
 
                 {{ #each getMachines }}
-                    <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="col-lg-4 col-md-6 mb-4 animated fadeInRight">
                         <div class="card h-100">
-                            <a href="#">
-                                <img class="card-img-top" src="http://placehold.it/700x400" alt="">
+                            <a href="{{ pathFor 'machine-see' id=this._id }}">
+                                {{ #with getMachineImage this.imageId }}
+                                    <img class="card-img-top" src="{{ this.url store='machineImagesStore' }}" alt="">
+                                {{ /with }}
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="#">Item One</a>
+                                    <a href="{{ pathFor 'machine-see' id=this._id }}">
+                                        {{ this.title }}
+                                    </a>
                                 </h4>
-                                <h5>$24.99</h5>
-                                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                                <p class="card-text">
+                                    {{ formatDescription this.description }}
+                                </p>
                             </div>
                             <div class="card-footer">
-                                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                                <div>
+                                <h5>
+                                    {{ #if this.available }}
+                                        Disponível
+                                    {{ else }}
+                                        Indisponível
+                                    {{ /if }}
+                                </h5>
+                                </div>
                             </div>
                         </div>
                     </div>
