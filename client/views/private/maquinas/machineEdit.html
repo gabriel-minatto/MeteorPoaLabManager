@@ -1,5 +1,4 @@
-<template name="machineNew">
-
+<template name="machineEdit">
     <div class="container">
         <div class="row">
 
@@ -8,7 +7,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-xl-10">
-                                <h2>Nova Máquina</h2>
+                                <h2>Editar Máquina</h2>
                             </div>
                             <div class="col-xl-2">
                                 <a href="{{ pathFor '/maquinas '}}">
@@ -17,7 +16,7 @@
                             </div>
                         </div>
                     </div>
-                    {{#autoForm collection="Machines" id="insertMachineForm" type="insert"}}
+                    {{#autoForm collection="Machines" doc=getMachine id="updateMachineForm" type="update"}}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xl-8">
@@ -44,5 +43,4 @@
 
         </div>
     </div>
-
 </template>

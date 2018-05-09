@@ -27,7 +27,7 @@ Template.machineList.helpers({
     },
 
     formatDescription(desc) {
-        return desc.slice(0, 100)+(desc.length > 100 ? '...Mais' : '' )
+        return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`
     }
 });
 

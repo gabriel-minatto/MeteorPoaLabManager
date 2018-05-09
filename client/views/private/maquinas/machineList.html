@@ -50,14 +50,25 @@
                                 </p>
                             </div>
                             <div class="card-footer">
-                                <div>
-                                <h5>
-                                    {{ #if this.available }}
-                                        Disponível
-                                    {{ else }}
-                                        Indisponível
+                                <div class="row">
+                                    <div class="col-xl-7">
+                                        <span class=" align-middle">
+                                            <h5>
+                                                {{ #if this.available }}
+                                                Disponível
+                                                {{ else }}
+                                                Indisponível
+                                                {{ /if }}
+                                            </h5>
+                                        </span>
+                                    </div>
+                                    {{ #if checkUserIsInRole 'admin' }}
+                                        <div class="col-xl-5">
+                                            <a href="{{ pathFor 'edit-machine' id=this._id}}">
+                                                <button class="btn btn-default">Editar</button>
+                                            </a>
+                                        </div>
                                     {{ /if }}
-                                </h5>
                                 </div>
                             </div>
                         </div>
