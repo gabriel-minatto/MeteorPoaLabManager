@@ -4,8 +4,11 @@ services:
 
   mongo:
     image: mongo:latest
-    command: mongod --storageEngine=wiredTiger
+    command: mongod --storageEngine=wiredTiger --quiet
     container_name: tcc-mongo
+    volumes:
+      - ./.mongodata/db:/data/db
+      - ./.mongodata/configdb:/data/configdb
     networks:
       - tcc-network
 
@@ -16,6 +19,7 @@ services:
     image: minatto/tcc
     container_name: tcc-meteor
     #command: [ "run", "start" ] ##uncoment to avoid update in every start
+    restart: always
     volumes:
       - ./:/app
     ports:

@@ -13,7 +13,9 @@
 
                 <div class="list-group">
                     <a href="#" data-filter="false" class="list-group-item projectFilter">Todos</a>
-                    <a href="#" data-filter="true" class="list-group-item projectFilter mb-4">Meus Projetos</a>
+                    {{ #if isLoggedIn }}
+                        <a href="#" data-filter="true" class="list-group-item projectFilter mb-4">Meus Projetos</a>
+                    {{ /if }}
                 </div>
                 {{ #if checkUserIsInRole 'default-group' and isLoggedIn }}
                     <div class="text-center mb-4">

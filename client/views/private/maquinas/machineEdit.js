@@ -26,3 +26,12 @@ Template.machineEdit.helpers({
         return Template.instance().machine.get();
     }
 });
+
+AutoForm.addHooks(['updateMachineForm'], {
+
+    onSuccess(formType, result) {
+
+        this.resetForm();
+        FlowRouter.go('machines');
+    }
+});

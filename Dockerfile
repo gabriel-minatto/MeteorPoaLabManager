@@ -1,4 +1,3 @@
-#docker build -t minatto/tcc .
 FROM golden/meteor-dev
 MAINTAINER Gabriel Minatto
 
