@@ -1,4 +1,4 @@
-AutoForm.addHooks(['insertMachineForm'], {
+AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
 
     onSuccess(formType, result) {
 

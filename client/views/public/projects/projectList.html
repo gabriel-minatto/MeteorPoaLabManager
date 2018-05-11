@@ -12,9 +12,9 @@
             <div class="col-lg-3">
 
                 <div class="list-group">
-                    <a href="#" data-filter="false" class="list-group-item projectFilter">Todos</a>
+                    <a href="#" data-filter="" class="list-group-item projectFilter">Todos</a>
                     {{ #if isLoggedIn }}
-                        <a href="#" data-filter="true" class="list-group-item projectFilter mb-4">Meus Projetos</a>
+                        <a href="#" data-filter="userProjects" class="list-group-item projectFilter mb-4">Meus Projetos</a>
                     {{ /if }}
                 </div>
                 {{ #if checkUserIsInRole 'default-group' and isLoggedIn }}
@@ -63,7 +63,7 @@
                                         </div>
                                         {{ #if checkUserIsInRole 'admin' }}
                                             <div class="col-xl-5">
-                                                <a href="{{ pathFor 'edit-project' id=this._id}}">
+                                                <a href="{{ pathFor 'project-edit' id=this._id}}">
                                                     <button class="btn btn-default">Editar</button>
                                                 </a>
                                             </div>

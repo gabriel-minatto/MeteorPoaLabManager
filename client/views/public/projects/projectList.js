@@ -1,6 +1,6 @@
 Template.projectList.onCreated(function() {
 
-    this.projects = new ReactiveVar([]);
+    this.filtro = new ReactiveVar(false);
 
     subsGlobal.subscribe('allProjects');
     subsGlobal.subscribe('allProjectCovers');
@@ -11,10 +11,6 @@ Template.projectList.onCreated(function() {
 
         if (!subsGlobal.ready()) return;
 
-        const projects = Projects.find().fetch();
-
-        self.projects.set(projects);
-
     });
 });
 
@@ -22,7 +18,11 @@ Template.projectList.helpers({
 
     getProjects() {
 
-        return Template.instance().projects.get();
+        let filtro = Template.instance().filtro.get();
+        if (!filtro)
+            return Projects.find().fetch();
+
+        return Projects.find(filtro).fetch();
     },
 
     getProjectCover(id) {
@@ -32,5 +32,24 @@ Template.projectList.helpers({
 
     formatDescription(desc) {
         return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`
+    }
+});
+
+Template.projectList.events({
+
+    'click .projectFilter': function (e, t) {
+        e.preventDefault();
+        let param = e.target.dataset.filter;
+
+        const filtro = {};
+
+        if (param == 'userProjects'){
+
+            filtro.owner = {
+                _id : Meteor.userId()
+            };
+        }
+
+        t.filtro.set(filtro);
     }
 });

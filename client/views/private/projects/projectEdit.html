@@ -1,0 +1,39 @@
+<template name="projectEdit">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-xl-10">
+                                <h2>Editar Projeto</h2>
+                            </div>
+                            <div class="col-xl-2">
+                                <a href="{{ pathFor '/projetos'}}">
+                                    <button class="btn btn-default float-right">Voltar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {{#autoForm collection="Projects" doc=getProject id="updateProjectForm" type="update"}}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-8">
+                                {{> afQuickField name='title'}} {{> afQuickField name='description'}} {{> afQuickField name='public' type='boolean-checkbox'}}
+                            </div>
+                            <div class="col-xl-4">
+                                {{> afQuickField name="coverId" type="cfs-file" collection="projectCovers" placeholder="Clique para selecionar" }} {{> afQuickField
+                                name="manualId" type="cfs-file" collection="projectManuals" placeholder="Clique para selecionar"
+                                }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                    {{/autoForm}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>
