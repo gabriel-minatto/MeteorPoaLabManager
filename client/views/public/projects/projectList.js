@@ -45,9 +45,7 @@ Template.projectList.events({
 
         if (param == 'userProjects'){
 
-            filtro.owner = {
-                _id : Meteor.userId()
-            };
+            filtro['owner._id'] = Meteor.userId();
         }
 
         t.filtro.set(filtro);

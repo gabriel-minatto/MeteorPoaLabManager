@@ -4,7 +4,13 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
         insert(doc) {
 
             doc.owner = Meteor.user();
-            console.log(doc);
+            doc.createdAt = new Date();
+            this.result(doc);
+        },
+
+        update(doc) {
+
+            doc.$set.updatedAt = new Date();
             this.result(doc);
         }
     },
