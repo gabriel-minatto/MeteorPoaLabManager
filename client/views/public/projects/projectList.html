@@ -61,7 +61,7 @@
                                                 </h5>
                                             </span>
                                         </div>
-                                        {{ #if checkUserIsInRole 'admin' }}
+                                        {{ #if canEditPost }}
                                             <div class="col-xl-5">
                                                 <a href="{{ pathFor 'project-edit' id=this._id}}">
                                                     <button class="btn btn-default">Editar</button>

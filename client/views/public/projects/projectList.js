@@ -2,7 +2,7 @@ Template.projectList.onCreated(function() {
 
     this.filtro = new ReactiveVar(false);
 
-    subsGlobal.subscribe('allProjects');
+    subsGlobal.subscribe('publishedProjects');
     subsGlobal.subscribe('allProjectCovers');
 
     let self = this;
@@ -20,9 +20,9 @@ Template.projectList.helpers({
 
         let filtro = Template.instance().filtro.get();
         if (!filtro)
-            return Projects.find().fetch();
+            return Projects.find({}, { sort: { createdAt : -1 } });
 
-        return Projects.find(filtro).fetch();
+        return Projects.find(filtro, { sort: { createdAt : -1 } });
     },
 
     getProjectCover(id) {
@@ -32,6 +32,16 @@ Template.projectList.helpers({
 
     formatDescription(desc) {
         return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`
+    },
+
+    canEditPost() {
+
+        if(!Meteor.user()) return false;
+
+        const canEdit = (this.owner._id == Meteor.userId() ||
+            Blaze._globalHelpers.checkUserIsInRole('admin'));
+
+        return canEdit;
     }
 });
 
@@ -43,10 +53,8 @@ Template.projectList.events({
 
         const filtro = {};
 
-        if (param == 'userProjects'){
-
-            filtro['owner._id'] = Meteor.userId();
-        }
+        if (param == 'userProjects')
+            filtro['owner._id'] =  Meteor.userId();
 
         t.filtro.set(filtro);
     }

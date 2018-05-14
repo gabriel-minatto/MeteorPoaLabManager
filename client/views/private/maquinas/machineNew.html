@@ -23,7 +23,14 @@
                             <div class="col-xl-8">
                                 {{> afQuickField name='title'}}
                                 {{> afQuickField name='description'}}
-                                {{> afQuickField name='available' type='boolean-checkbox'}}
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        {{> afQuickField name='available' type='boolean-checkbox'}}
+                                    </div>
+                                    <div class="col-xl-2">
+                                        {{> afQuickField name='active' type='boolean-checkbox'}}
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-xl-4">
                                 {{> afQuickField name="imageId"

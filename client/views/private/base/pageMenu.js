@@ -10,8 +10,8 @@ Template.pageMenu.helpers({
         return [
             ['home', 'Home'],
             ['machines', 'Máquinas'],
-            ['projetos', 'Projetos'],
-            ['sair', 'Sair']
+            ['projects', 'Projetos'],
+            ['logout', 'Sair']
         ];
     },
 

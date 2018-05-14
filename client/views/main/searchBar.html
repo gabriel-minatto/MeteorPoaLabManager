@@ -1,0 +1,49 @@
+<template name="searchBar">
+<div class="input-group">
+
+    <input type="text" placeholder="Pesquisar" id="searchBar" name="searchBar" />
+    <div class="dropdown-menu" id="searchBarResults">
+        {{ #if searchHasResult }}
+            {{ #each getSearchResults }}
+                {{ #if @index != 0 }}
+                    <div role="separator" class="dropdown-divider"></div>
+                {{ /if }}
+                <a class="dropdown-item" target="_blank" href="{{ pathFor 'project-see' id=this._id }}">
+                    {{ this.title }}
+                </a>
+            {{ /each }}
+        {{ else }}
+            <a class="dropdown-item" href="#" onclick="return false;">Sem resultados</a>
+        {{ /if }}
+    </div>
+</div>
+
+    <style>
+        #searchBar{
+            width: 40%;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: white;
+            background-image: url('{{ pathFor "/images/searchicon.png" }}');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            padding: 9px 20px 5px 40px;
+            -webkit-transition: width 0.4s ease-in-out;
+            transition: width 0.4s ease-in-out;
+        }
+        #searchBar:focus{
+            width: 80%;
+        }
+        #searchBar:focus#searchBar:not(:placeholder-shown) + #searchBarResults{
+            display: block !important;
+        }
+        #searchBarResults{
+            width: 80%;
+        }
+        #searchBarResults:hover{
+            display: block !important;
+        }
+    </style>
+</template>

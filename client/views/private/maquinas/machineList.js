@@ -1,7 +1,7 @@
 Template.machineList.onCreated(function () {
     this.filtro = new ReactiveVar(false);
 
-    subsGlobal.subscribe('allMachines');
+    subsGlobal.subscribe('activeMachines');
     subsGlobal.subscribe('allMachineImages');
 
     this.autorun(function () {
