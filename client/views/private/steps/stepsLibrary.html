@@ -27,9 +27,11 @@
                                 <div class="row">
                                     {{ #each getUserSteps }}
                                         <div class="col-xl-3 mt-4">
-                                            <div class="card stepCard" id="{{this.title}}">
+                                            <div class="card stepCard">
                                                 <i class="fa fa-window-close deleteStepBtn" aria-hidden="true"></i>
-                                                <img class="card-img-top" src="/cfs/files/projectCovers/XJRFSJqhTGTdD9djG/3d-printer.jpg?token=eyJhdXRoVG9rZW4iOiJBRVRFempjNjNyNHM2bUFFNWd5blhDYUdaZU5SQm1jY1IzNktLTDhKREZoIn0%3D&store=projectCoversStore"/>
+                                                {{ #with getStepCover }}
+                                                    <img class="card-img-top" src="{{ this.url store='stepImagesStore' }}"/>
+                                                {{ /with }}
                                                 <div class="card-header">{{ this.title }}</div>
                                             </div>
                                         </div>
