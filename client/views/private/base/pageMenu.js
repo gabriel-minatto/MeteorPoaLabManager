@@ -11,6 +11,7 @@ Template.pageMenu.helpers({
             ['home', 'Home'],
             ['machines', 'Máquinas'],
             ['projects', 'Projetos'],
+            ['steps-library', 'Etapas'],
             ['logout', 'Sair']
         ];
     },

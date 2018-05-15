@@ -1,0 +1,54 @@
+<template name="stepsNew">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-xl-10">
+                                <h2>Nova Etapa</h2>
+                            </div>
+                            <div class="col-xl-2">
+                                <a href="{{ pathFor 'projects'}}">
+                                    <button class="btn btn-default float-right">Voltar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {{#autoForm collection="Steps" id="insertStepForm" type="insert"}}
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-8">
+                                {{> afQuickField name='title'}}
+                                {{> afQuickField name='instructions'}}
+                                {{> afArrayField name='embedContent' maxCount='5'}}
+                                {{ #if checkUserIsInRole 'admin' }}
+                                    <br>
+                                    {{> afQuickField name='active' type='boolean-checkbox'}}
+                                {{ /if }}
+                            </div>
+                            <div class="col-xl-4">
+                                {{> afQuickField
+                                    name="imagesIds"
+                                    type="cfs-files"
+                                    collection="stepImages"
+                                    placeholder="Clique para selecionar"
+                                }}
+                                {{> afQuickField
+                                    name="manualId"
+                                    type="cfs-file"
+                                    collection="stepManuals"
+                                    placeholder="Clique para selecionar"
+                                }}
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                    {{/autoForm}}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>

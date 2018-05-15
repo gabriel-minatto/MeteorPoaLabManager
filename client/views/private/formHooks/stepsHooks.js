@@ -1,4 +1,4 @@
-AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
+AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
 
     before: {
         insert(doc) {
@@ -6,6 +6,10 @@ AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
             doc.owner = Meteor.user();
             doc.createdAt = new Date();
             doc.updatedAt = new Date();
+
+            if (doc.active == undefined) {
+                doc.active = true;
+            }
             this.result(doc);
         },
 
@@ -19,6 +23,6 @@ AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
     onSuccess(formType, result) {
 
         this.resetForm();
-        FlowRouter.go('machines');
+        FlowRouter.go('steps-library');
     }
 });

@@ -5,6 +5,7 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
 
             doc.owner = Meteor.user();
             doc.createdAt = new Date();
+            doc.updatedAt = new Date();
 
             if(doc.active == undefined){
                 doc.active = true;

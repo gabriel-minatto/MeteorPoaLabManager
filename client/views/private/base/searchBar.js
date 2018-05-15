@@ -25,7 +25,7 @@ Template.searchBar.onCreated(function() {
             ]
         };
 
-        const results = Projects.find(filter).fetch();
+        const results = Projects.find(filter, { sort: { createdAt: -1 }, limit: 15}).fetch();
 
         self.searchResults.set(results);
 

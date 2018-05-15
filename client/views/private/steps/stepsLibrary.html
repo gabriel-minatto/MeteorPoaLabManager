@@ -1,0 +1,72 @@
+<template name="stepsLibrary">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-xl-9">
+                                <h2>Biblioteca de Etapas</h2>
+                            </div>
+                            <div class="col-xl-2">
+                                <a href="{{ pathFor 'steps-new'}}">
+                                    <button class="btn btn-success float-right">Nova Etapa</button>
+                                </a>
+                            </div>
+                            <div class="col-xl-1">
+                                <a href="{{ pathFor 'projects'}}">
+                                    <button class="btn btn-default float-right">Voltar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" style="padding-top: 0px;">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="row">
+                                    {{ #each getUserSteps }}
+                                        <div class="col-xl-3 mt-4">
+                                            <div class="card stepCard" id="{{this.title}}">
+                                                <i class="fa fa-window-close deleteStepBtn" aria-hidden="true"></i>
+                                                <img class="card-img-top" src="/cfs/files/projectCovers/XJRFSJqhTGTdD9djG/3d-printer.jpg?token=eyJhdXRoVG9rZW4iOiJBRVRFempjNjNyNHM2bUFFNWd5blhDYUdaZU5SQm1jY1IzNktLTDhKREZoIn0%3D&store=projectCoversStore"/>
+                                                <div class="card-header">{{ this.title }}</div>
+                                            </div>
+                                        </div>
+                                    {{ /each }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 10vw;
+            object-fit: cover;
+        }
+        .deleteStepBtn {
+            right: -10px;
+            top: -10px;
+            position: absolute;
+            float: right;
+            padding: 2px 5px;
+            background-color: white;
+            display: none;
+        }
+        .stepCard:hover > .deleteStepBtn{
+            display: inline-block;
+        }
+
+        /*.deleteStepBtn:hover {
+            float:right;
+            display:inline-block;
+            padding:2px 5px;
+            background:#ccc;
+        }*/
+    </style>
+</template>
