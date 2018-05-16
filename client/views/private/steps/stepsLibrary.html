@@ -28,10 +28,12 @@
                                     {{ #each getUserSteps }}
                                         <div class="col-xl-3 mt-4">
                                             <div class="card stepCard">
-                                                <i class="fa fa-window-close deleteStepBtn" aria-hidden="true"></i>
-                                                {{ #with getStepCover }}
-                                                    <img class="card-img-top" src="{{ this.url store='stepImagesStore' }}"/>
-                                                {{ /with }}
+                                                <i class="fa fa-window-close deleteStepBtn" data-stepid="{{ this._id }}" aria-hidden="true"></i>
+                                                <a href="{{ pathFor 'steps-edit' id=this._id }}">
+                                                    {{ #with getStepCover }}
+                                                        <img class="card-img-top" src="{{ this.url store='stepImagesStore' }}"/>
+                                                    {{ /with }}
+                                                </a>
                                                 <div class="card-header">{{ this.title }}</div>
                                             </div>
                                         </div>

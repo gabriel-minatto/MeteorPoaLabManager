@@ -40,3 +40,22 @@ Template.stepsLibrary.helpers({
 
     }
 });
+
+Template.stepsLibrary.events({
+
+    'click .deleteStepBtn': function(e, t) {
+
+        const stepId = e.target.dataset.stepid;
+        new Confirmation({
+            message: "Esta ação não pode ser desfeita.",
+            title: "Você tem certeza?",
+            cancelText: "Cancelar",
+            okText: "Confirmar",
+            success: false, // whether the button should be green or red
+            focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
+        }, (ok) => {
+            if(!ok) return;
+            Steps.remove({_id:stepId});
+        });
+    }
+});

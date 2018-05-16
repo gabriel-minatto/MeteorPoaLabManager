@@ -2,7 +2,7 @@ Template.projectEdit.onCreated(function () {
 
     this.project = new ReactiveVar({});
 
-    subsGlobal.subscribe('allProjects');
+    subsGlobal.subscribe('publishedProjects');
 
     let self = this;
 

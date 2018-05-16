@@ -1,4 +1,4 @@
-<template name="stepsNew">
+<template name="stepsEdit">
     <div class="container">
         <div class="row">
 
@@ -7,7 +7,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col-xl-10">
-                                <h2>Nova Etapa</h2>
+                                <h2>Editar Etapa</h2>
                             </div>
                             <div class="col-xl-2">
                                 <a href="{{ pathFor 'steps-library'}}">
@@ -16,7 +16,7 @@
                             </div>
                         </div>
                     </div>
-                    {{#autoForm collection="Steps" id="insertStepForm" type="insert"}}
+                    {{#autoForm collection="Steps" doc=getStep id="updateStepForm" type="update"}}
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xl-8">
@@ -33,8 +33,7 @@
                                     name="imagesIds"
                                     type="cfs-files"
                                     collection="stepImages"
-                                    placeholder="Clique para selecionar"
-                                }}
+                                    placeholder="Clique para selecionar" }}
                                 {{> afQuickField
                                     name="manualId"
                                     type="cfs-file"
