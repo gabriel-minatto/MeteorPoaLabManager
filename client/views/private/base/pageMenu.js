@@ -1,8 +1,3 @@
-Template.pageMenu.onCreated(function() {
-
-    this.actualSection = new ReactiveVar('home');
-});
-
 Template.pageMenu.helpers({
 
     getNavBarLinks() {
@@ -16,19 +11,8 @@ Template.pageMenu.helpers({
         ];
     },
 
-    compareWithActualSection(routeName) {
+    getActiveLink(routeName) {
 
-        return Template.instance().actualSection.get() == routeName;
-    }
-});
-
-Template.pageMenu.events({
-
-    'click .pageMenuLink': function (e, t) {
-        let event = document.createEvent('HTMLEvents');
-        event.initEvent('click', true, false);
-        document.querySelector('.navbar-toggler').dispatchEvent(event);
-
-        t.actualSection.set(e.target.dataset.routename);
+        return routeName == FlowRouter.getRouteName();
     }
 });

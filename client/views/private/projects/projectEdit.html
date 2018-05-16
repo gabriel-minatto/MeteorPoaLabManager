@@ -5,11 +5,19 @@
             <div class="col-xl-12">
                 <div class="card">
                     <div class="card-header">
+
                         <div class="row align-items-center">
-                            <div class="col-xl-10">
+                            <div class="col-xl-9">
                                 <h2>Editar Projeto</h2>
                             </div>
-                            <div class="col-xl-2">
+                            <div class="col-xl-2 pr-0">
+                                {{ #with getProject }}
+                                    <a href="{{ pathFor 'project-steps' id=this._id}}">
+                                        <button class="btn btn-info float-right">Etapas</button>
+                                    </a>
+                                {{ /with }}
+                            </div>
+                            <div class="col-xl-1">
                                 <a href="{{ pathFor 'projects'}}">
                                     <button class="btn btn-default float-right">Voltar</button>
                                 </a>

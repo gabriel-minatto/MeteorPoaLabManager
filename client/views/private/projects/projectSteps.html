@@ -1,4 +1,4 @@
-<template name="stepsLibrary">
+<template name="projectSteps">
     <div class="container">
         <div class="row">
 
@@ -6,15 +6,10 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row align-items-center">
-                            <div class="col-xl-9">
-                                <h2>Biblioteca de Etapas</h2>
+                            <div class="col-xl-10">
+                                <h2>Etapas do Projeto</h2>
                             </div>
-                            <div class="col-xl-2 pr-0">
-                                <a href="{{ pathFor 'steps-new'}}">
-                                    <button class="btn btn-success float-right">Nova Etapa</button>
-                                </a>
-                            </div>
-                            <div class="col-xl-1">
+                            <div class="col-xl-2">
                                 <a href="{{ pathFor 'projects'}}">
                                     <button class="btn btn-default float-right">Voltar</button>
                                 </a>
@@ -23,21 +18,11 @@
                     </div>
                     <div class="card-body" style="padding-top: 0px;">
                         <div class="row">
-                            <div class="col-xl-12">
+                            <div class="col-xl-8">
                                 <div class="row">
-                                    {{ #each getUserSteps }}
-                                        <div class="col-xl-3 mt-4">
-                                            <div class="card stepCard">
-                                                <i class="fa fa-window-close deleteStepBtn" data-stepid="{{ this._id }}" aria-hidden="true"></i>
-                                                <a href="{{ pathFor 'steps-edit' id=this._id }}">
-                                                    {{ #with getStepCover }}
-                                                        <img class="card-img-top" src="{{ this.url store='stepImagesStore' }}"/>
-                                                    {{ /with }}
-                                                </a>
-                                                <div class="card-header">{{ this.title }}</div>
-                                            </div>
-                                        </div>
-                                    {{ /each }}
+                                    <div id="stepsContainer">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

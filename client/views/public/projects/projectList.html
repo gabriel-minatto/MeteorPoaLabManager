@@ -50,7 +50,7 @@
                                 </div>
                                 <div class="card-footer pb-0">
                                     <div class="row">
-                                        <div class="col-xl-8">
+                                        <div class="col-xl-6">
                                             <span class=" align-middle">
                                                 <h5 style="margin-bottom:2px;">
                                                     {{ #if this.public }}
@@ -61,11 +61,16 @@
                                                 </h5>
                                             </span>
                                             <small style="color:#a5a4a4;">
-                                                Atualizado em {{ formatDateToBrTextWithTime this.createdAt }}
+                                                {{ formatDateToBrTextWithTime this.createdAt }}
                                             </small>
                                         </div>
                                         {{ #if canEditPost }}
-                                            <div class="col-xl-4">
+                                            <div class="col-xl-3 pr-0">
+                                                <a href="{{ pathFor 'project-steps' id=this._id}}">
+                                                    <button class="btn btn-info float-right">Etapas</button>
+                                                </a>
+                                            </div>
+                                            <div class="col-xl-3">
                                                 <a href="{{ pathFor 'project-edit' id=this._id}}">
                                                     <button class="btn btn-default float-right">Editar</button>
                                                 </a>
@@ -87,4 +92,13 @@
         <!-- /.row -->
 
     </div>
+    <style>
+
+        .card-img-top {
+            width: 100%;
+            height: 16vw;
+            object-fit: cover;
+        }
+
+    </style>
 </template>
