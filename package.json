@@ -15,8 +15,7 @@
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^2.0.1",
     "meteor-node-stubs": "^0.3.2",
-    "simpl-schema": "^1.5.0",
-    "treant-js": "^1.0.1"
+    "simpl-schema": "^1.5.0"
   },
   "author": "Gabriel Minatto",
   "license": "ISC"
