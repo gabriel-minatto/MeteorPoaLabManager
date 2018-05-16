@@ -20,9 +20,9 @@ Template.projectList.helpers({
 
         let filtro = Template.instance().filtro.get();
         if (!filtro)
-            return Projects.find({}, { sort: { createdAt : -1 } });
+            return Projects.find({}, { sort: { updatedAt : -1 } });
 
-        return Projects.find(filtro, { sort: { createdAt : -1 } });
+        return Projects.find(filtro, { sort: { updatedAt : -1 } });
     },
 
     getProjectCover(id) {

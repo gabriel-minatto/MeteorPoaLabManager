@@ -48,11 +48,11 @@
                                         {{ formatDescription this.description }}
                                     </p>
                                 </div>
-                                <div class="card-footer">
+                                <div class="card-footer pb-0">
                                     <div class="row">
-                                        <div class="col-xl-7">
+                                        <div class="col-xl-8">
                                             <span class=" align-middle">
-                                                <h5>
+                                                <h5 style="margin-bottom:2px;">
                                                     {{ #if this.public }}
                                                     Publicado
                                                     {{ else }}
@@ -60,11 +60,14 @@
                                                     {{ /if }}
                                                 </h5>
                                             </span>
+                                            <small style="color:#a5a4a4;">
+                                                Atualizado em {{ formatDateToBrTextWithTime this.createdAt }}
+                                            </small>
                                         </div>
                                         {{ #if canEditPost }}
-                                            <div class="col-xl-5">
+                                            <div class="col-xl-4">
                                                 <a href="{{ pathFor 'project-edit' id=this._id}}">
-                                                    <button class="btn btn-default">Editar</button>
+                                                    <button class="btn btn-default float-right">Editar</button>
                                                 </a>
                                             </div>
                                         {{ /if }}
