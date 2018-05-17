@@ -2,6 +2,7 @@ Template.projectSteps.onCreated(function() {
 
     this.threeNodes = new ReactiveVar(false);
 
+    subsGlobal.subscribe('publishedProjects');
     subsGlobal.subscribe('activeUserSteps');
     subsGlobal.subscribe('allStepImages');
 
@@ -42,7 +43,8 @@ Template.projectSteps.onRendered(function() {
                                     left: (threeNodes[0].fatherId ? true : false),
                                     right: (threeNodes[0].fatherId ? true : false),
                                     down: (!nodo.children),
-                                    fatherId: val.fatherId
+                                    fatherId: val.fatherId,
+                                    threeId: val.threeId
                                 };
                                 const newNode = {
                                     innerHTML: UI.toHTMLWithData(Template.stepBox, {
@@ -91,6 +93,14 @@ Template.projectSteps.onRendered(function() {
 
 });
 
+/* Template.projectSteps.helpers({
+
+    getThreeNodes() {
+
+        return Template.instance().threeNodes.get();
+    }
+}); */
+
 Template.projectSteps.events({
 
     'click .stepBtn': function (e, t) {
@@ -98,8 +108,6 @@ Template.projectSteps.events({
         const threeNodes = Template.instance().threeNodes.get();
         const fatherId = e.target.dataset.stepid;
         const push = e.target.dataset.push;
-        console.log(threeNodes);
-        //vqHhbpZ7aaoqRFPB4
 
         const procura = (fatherId) => {
             return {
@@ -112,16 +120,18 @@ Template.projectSteps.events({
 
                                 if(stop) return newThree.push(val);
 
-                                if(val.stepNode._id == fatherId){
+                                if(val.threeId == fatherId){
 
                                     if(!val.stepNode.children){
                                         val.stepNode.children = [];
                                     }
 
-                                    if(push){
+                                    if(push) {
                                         val.stepNode.children.push(newNode);
                                     }
-                                    val.stepNode.children.unshift(newNode);
+                                    else {
+                                        val.stepNode.children.unshift(newNode);
+                                    }
 
                                     newThree.push(val);
                                     stop = true;
@@ -149,10 +159,11 @@ Template.projectSteps.events({
             }
         };
 
-        const step = Steps.findOne({_id:"vqHhbpZ7aaoqRFPB4"});
+        const step = Steps.findOne({_id:"2GvPtnHXR82hJwsGx"});
         const newChild = {
             fatherId: fatherId,
-            stepNode: step
+            stepNode: step,
+            threeId: Random.id()
         };
 
         const newNodeThree = procura(fatherId)
