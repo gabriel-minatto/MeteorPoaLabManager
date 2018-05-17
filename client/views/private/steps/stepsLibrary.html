@@ -27,7 +27,11 @@
                                 <div class="row">
                                     {{ #each getUserSteps }}
                                         <div class="col-xl-3 mt-4">
-                                            <div class="card stepCard">
+                                            {{> stepBox
+                                                step=this
+                                                routeName='steps-edit'
+                                            }}
+                                            <!-- <div class="card stepCard">
                                                 <i class="fa fa-window-close deleteStepBtn" data-stepid="{{ this._id }}" aria-hidden="true"></i>
                                                 <a href="{{ pathFor 'steps-edit' id=this._id }}">
                                                     {{ #with getStepCover }}
@@ -35,7 +39,7 @@
                                                     {{ /with }}
                                                 </a>
                                                 <div class="card-header">{{ this.title }}</div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     {{ /each }}
                                 </div>

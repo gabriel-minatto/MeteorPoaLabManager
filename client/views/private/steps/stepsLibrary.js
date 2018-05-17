@@ -2,7 +2,6 @@ Template.stepsLibrary.onCreated(function(){
 
     subsGlobal.subscribe('activeUserSteps');
     subsGlobal.subscribe('allStepImages');
-    subsGlobal.subscribe('allStepManuals');
 
     const self = this;
 
