@@ -34,6 +34,8 @@ Template.projectSteps.onRendered(function() {
 
         const nodeStructure = self.nodeStructure.get();
 
+        if (!nodeStructure) return;
+
         const chart_config = {
             chart: {
                 container: "#stepsContainer",
@@ -43,6 +45,7 @@ Template.projectSteps.onRendered(function() {
                 node: {
                     HTMLclass: 'step-node'
                 },
+                scrollbar: "fancy"
             },
             nodeStructure: nodeStructure
 
@@ -82,16 +85,68 @@ Template.projectSteps.events({
 
         const id = FlowRouter.getParam('id');
 
-        const project = Projects.update({_id: id},{
-            $set:{
-                steps: newNodeThree
-            }
+        Meteor.call('updateProject', id, {
+            steps: newNodeThree
         });
 
     },
 
-    updateNode(){
+    'click .deleteStepBtn': function(e, t) {
+        const threeNodes = Template.instance().threeNodes.get();
+        const fatherId = e.target.dataset.stepid;
+        const threeId = e.target.dataset.threeid;
 
+        const remove = (threeId) => {
+            return {
+                from: (fatherId) => {
+                    return {
+                        in: (threeNodes) => {
+                            let stop = false;
+                            return threeNodes.map((val, ind, arr) => {
+
+                                if(stop) return val;
+
+                                const nodo = val.stepNode;
+
+                                if (!nodo.children) return val;
+
+                                if(val.threeId == fatherId){
+
+                                    nodo.children =
+                                        nodo.children.filter(v => v.threeId != threeId);
+
+                                    if(!nodo.children.length){
+                                        delete nodo.children;
+                                    }
+                                    stop = true;
+                                    val.stepNode = nodo;
+                                    return val;
+                                }
+
+                                nodo.children = remove(threeId)
+                                    .from(fatherId)
+                                    .in(nodo.children);
+
+                                val.stepNode = nodo;
+                                return val;
+                            });
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        const newNodeThree = remove(threeId)
+            .from(fatherId)
+            .in(threeNodes);
+
+        const id = FlowRouter.getParam('id');
+
+        Meteor.call('updateProject', id, {
+            steps: newNodeThree
+        });
     }
 });
 
