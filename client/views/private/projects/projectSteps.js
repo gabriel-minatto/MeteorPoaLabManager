@@ -56,13 +56,13 @@ Template.projectSteps.onRendered(function() {
 
 });
 
-/* Template.projectSteps.helpers({
+Template.projectSteps.helpers({
 
-    getThreeNodes() {
+    getProjectId() {
 
-        return Template.instance().threeNodes.get();
+        return FlowRouter.getParam('id');
     }
-}); */
+});
 
 Template.projectSteps.events({
 
@@ -72,7 +72,16 @@ Template.projectSteps.events({
         const fatherId = e.target.dataset.stepid;
         const push = e.target.dataset.push;
 
-        const step = Steps.findOne({_id:"2GvPtnHXR82hJwsGx"});
+        FlowRouter.setQueryParams({
+            fatherId: fatherId,
+            push: push
+        });
+
+        Modal.show('stepsNewModal', {
+            hideBack: true
+        });
+
+        /*const step = Steps.findOne({_id:"2GvPtnHXR82hJwsGx"});
         const newChild = {
             fatherId: fatherId,
             stepNode: step,
@@ -87,7 +96,7 @@ Template.projectSteps.events({
 
         Meteor.call('updateProject', id, {
             steps: newNodeThree
-        });
+        });*/
 
     },
 
@@ -95,48 +104,6 @@ Template.projectSteps.events({
         const threeNodes = Template.instance().threeNodes.get();
         const fatherId = e.target.dataset.stepid;
         const threeId = e.target.dataset.threeid;
-
-        const remove = (threeId) => {
-            return {
-                from: (fatherId) => {
-                    return {
-                        in: (threeNodes) => {
-                            let stop = false;
-                            return threeNodes.map((val, ind, arr) => {
-
-                                if(stop) return val;
-
-                                const nodo = val.stepNode;
-
-                                if (!nodo.children) return val;
-
-                                if(val.threeId == fatherId){
-
-                                    nodo.children =
-                                        nodo.children.filter(v => v.threeId != threeId);
-
-                                    if(!nodo.children.length){
-                                        delete nodo.children;
-                                    }
-                                    stop = true;
-                                    val.stepNode = nodo;
-                                    return val;
-                                }
-
-                                nodo.children = remove(threeId)
-                                    .from(fatherId)
-                                    .in(nodo.children);
-
-                                val.stepNode = nodo;
-                                return val;
-                            });
-                        }
-                    }
-                }
-
-            }
-
-        }
 
         const newNodeThree = remove(threeId)
             .from(fatherId)
@@ -147,6 +114,11 @@ Template.projectSteps.events({
         Meteor.call('updateProject', id, {
             steps: newNodeThree
         });
+    },
+
+    'click #newStepModalBtn': function(e, t) {
+
+        Modal.show('stepsNewModal', { hideBack : true });
     }
 });
 
@@ -235,4 +207,46 @@ function procura(fatherId) {
             }
         }
     }
+}
+
+function remove(threeId) {
+
+    return {
+        from: (fatherId) => {
+            return { in: (threeNodes) => {
+                    let stop = false;
+                    return threeNodes.map((val, ind, arr) => {
+
+                        if (stop) return val;
+
+                        const nodo = val.stepNode;
+
+                        if (!nodo.children) return val;
+
+                        if (val.threeId == fatherId) {
+
+                            nodo.children =
+                                nodo.children.filter(v => v.threeId != threeId);
+
+                            if (!nodo.children.length) {
+                                delete nodo.children;
+                            }
+                            stop = true;
+                            val.stepNode = nodo;
+                            return val;
+                        }
+
+                        nodo.children = remove(threeId)
+                            .from(fatherId)
+                            .in(nodo.children);
+
+                        val.stepNode = nodo;
+                        return val;
+                    });
+                }
+            }
+        }
+
+    }
+
 }

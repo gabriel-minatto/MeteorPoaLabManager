@@ -1,0 +1,50 @@
+<template name="stepsNewModal">
+    <div class="modal fade">
+        <div class="modal-dialog m-auto">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Nova Etapa</h4>
+                    <div class="modal-closeBtn" data-dismiss="modal">x</div>
+                </div>
+
+                <div class="modal-body">
+                    {{> stepsNew  hideBack=true }}
+                </div>
+
+                <div class="modal-footer d-none">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <style>
+        .modal-dialog {
+            width: 70% !important;
+            max-width: unset !important;
+            margin-top: 2% !important;
+            margin-bottom: 2% !important;
+        }
+
+        .modal-dialog .modal-body {
+            padding: 0px;
+        }
+
+        .modal-dialog .modal-body .container .col-xl-12{
+            padding: 0px;
+        }
+
+        .modal-dialog .modal-body form {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .modal-closeBtn {
+            padding: 0px 10px;
+            background-color: #e8ebef;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+</template>

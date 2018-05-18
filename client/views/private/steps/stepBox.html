@@ -20,13 +20,13 @@
                 {{ #if ../nodeControls }}
                     {{ #with ../nodeControls }}
                         {{ #if this.left }}
-                            <i class="fa fa-arrow-left stepBtn leftStepBtn fa-2x" data-stepid="{{ this.fatherId }}" data-push="" aria-hidden="true"></i>
+                            <i class="fa fa-caret-square-o-left fa-2x stepBtn leftStepBtn" data-stepid="{{ this.fatherId }}" data-push="" aria-hidden="true"></i>
                         {{ /if }}
                         {{ #if this.right }}
-                            <i class="fa fa-arrow-right stepBtn rightStepBtn fa-2x" data-stepid="{{ this.fatherId }}" data-push="true" aria-hidden="true"></i>
+                            <i class="fa fa-caret-square-o-right fa-2x stepBtn rightStepBtn" data-stepid="{{ this.fatherId }}" data-push="true" aria-hidden="true"></i>
                         {{ /if }}
                         {{ #if this.down }}
-                            <i class="fa fa-arrow-down stepBtn downStepBtn fa-2x" data-stepid="{{ this.threeId }}" aria-hidden="true"></i>
+                            <i class="fa fa-caret-square-o-down fa-2x stepBtn downStepBtn" data-stepid="{{ this.threeId }}" aria-hidden="true"></i>
                         {{ /if }}
                     {{ /with }}
                 {{ /if }}
@@ -44,23 +44,25 @@
 
         .leftStepBtn {
             position: absolute;
-            right: 96%;
+            right: 80%;
             top: 32%;
         }
 
         .rightStepBtn {
             position: absolute;
-            left: 96%;
+            left: 80%;
             top: 32%;
         }
 
         .downStepBtn {
             position: absolute;
             left: 35%;
-            top: 94%;
+            top: 78%;
         }
 
         .stepBtn {
+            background-color: white;
+            border-radius: 5px;
             display: none;
         }
 

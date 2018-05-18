@@ -4,18 +4,20 @@
 
             <div class="col-xl-12">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="row align-items-center">
-                            <div class="col-xl-10">
-                                <h2>Nova Etapa</h2>
-                            </div>
-                            <div class="col-xl-2">
-                                <a href="{{ pathFor 'steps-library'}}">
-                                    <button class="btn btn-default float-right">Voltar</button>
-                                </a>
+                    {{ #unless hideBack }}
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-xl-10">
+                                    <h2>Nova Etapa</h2>
+                                </div>
+                                <div class="col-xl-2">
+                                    <a href="{{ pathFor 'steps-library'}}">
+                                        <button class="btn btn-default float-right">Voltar</button>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {{ /unless }}
                     {{#autoForm collection="Steps" id="insertStepForm" type="insert"}}
                     <div class="card-body">
                         <div class="row">
@@ -23,10 +25,6 @@
                                 {{> afQuickField name='title'}}
                                 {{> afQuickField name='instructions'}}
                                 {{> afArrayField name='embedContent' maxCount='5'}}
-                                {{ #if checkUserIsInRole 'admin' }}
-                                    <br>
-                                    {{> afQuickField name='active' type='boolean-checkbox'}}
-                                {{ /if }}
                             </div>
                             <div class="col-xl-4">
                                 {{> afQuickField
@@ -41,9 +39,19 @@
                                     collection="stepManuals"
                                     placeholder="Clique para selecionar"
                                 }}
+                                {{ #if checkUserIsInRole 'admin' }}
+                                    <br>
+                                    {{> afQuickField name='active' type='boolean-checkbox'}}
+                                {{ /if }}
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Salvar</button>
+                        <div class="row">
+                            <div class="col-xl-10">
+                                <div class="form-group mt-3">
+                                    <button id="newStepSubmitBtn" type="submit" class="btn btn-primary">Salvar</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     {{/autoForm}}
                 </div>
