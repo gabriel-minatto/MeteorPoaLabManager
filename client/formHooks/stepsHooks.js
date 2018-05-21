@@ -30,18 +30,23 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
         }
 
         const projectId = FlowRouter.getParam('id');
-        const fatherId = FlowRouter.getQueryParam('fatherId');
-        const push = FlowRouter.getQueryParam('push');
 
-        debugger;
+        const fatherId = Session.get('fatherId');
+        const push = Session.get('push');
+
+        if(fatherId == undefined && push == undefined) return;
 
         const project = Projects.findOne({ _id: projectId });
 
         const newChild = {
             fatherId: fatherId,
-            stepNode: this.insertDoc,
-            threeId: Random.id()
+            threeId: Random.id(),
+            stepNode: this.insertDoc
         };
+
+        if(!project.steps || !project.steps.length){
+            newChild.fatherId = false;
+        }
 
         const newNodeThree = procura(fatherId)
             .em(project.steps)
@@ -51,10 +56,10 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
             steps: newNodeThree
         });
 
-        FlowRouter.setQueryParams({
-            fatherId: null,
-            push: null
-        });
+        Session.set('fatherId', undefined);
+        Session.set('push', undefined);
+        delete Session.keys.fatherId;
+        delete Session.keys.push;
 
     }
 });
@@ -65,6 +70,9 @@ function procura(fatherId) {
         em(threeNodes) {
             return {
                 insere(newNode, push) {
+
+                    if(!newNode.fatherId) return [newNode];
+
                     const newThree = [];
                     let stop = false;
                     threeNodes.forEach((val, ind) => {

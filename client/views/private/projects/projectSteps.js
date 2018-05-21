@@ -34,7 +34,7 @@ Template.projectSteps.onRendered(function() {
 
         const nodeStructure = self.nodeStructure.get();
 
-        if (!nodeStructure) return;
+        if (!nodeStructure || !Object.keys(nodeStructure).length) return;
 
         const chart_config = {
             chart: {
@@ -61,6 +61,11 @@ Template.projectSteps.helpers({
     getProjectId() {
 
         return FlowRouter.getParam('id');
+    },
+
+    projectHasSteps() {
+
+        return Template.instance().nodeStructure.get().length;
     }
 });
 
@@ -72,10 +77,8 @@ Template.projectSteps.events({
         const fatherId = e.target.dataset.stepid;
         const push = e.target.dataset.push;
 
-        FlowRouter.setQueryParams({
-            fatherId: fatherId,
-            push: push
-        });
+        Session.set('fatherId', fatherId);
+        Session.set('push', push);
 
         Modal.show('stepsNewModal', {
             hideBack: true
@@ -123,10 +126,14 @@ Template.projectSteps.events({
 });
 
 function tranforma(threeNodes) {
+
     return {
         em() {
             return {
                 diagrama() {
+
+                    if(!threeNodes || !Array.isArray(threeNodes) || !threeNodes.length) return [];
+
                     const mapNode = threeNodes.map((val, ind, arr) => {
                         const nodo = val.stepNode;
                         const nodeControls = {
