@@ -10,6 +10,13 @@ Template.stepsEdit.onCreated(function () {
 
         if (!subsGlobal.ready()) return;
 
+        if(Template.currentData().step) {
+
+            const step = Template.currentData().step;
+            self.step.set(step);
+            return;
+        }
+
         const id = FlowRouter.getParam('id');
 
         const step = Steps.findOne({ _id: id });
@@ -20,9 +27,20 @@ Template.stepsEdit.onCreated(function () {
 });
 
 Template.stepsEdit.helpers({
-
+    
     getStep() {
 
         return Template.instance().step.get();
+    }
+});
+
+Template.stepsEdit.events({
+
+    'submit #updateStepForm': function (e, t) {
+
+        if (FlowRouter.getRouteName() == 'project-steps') {
+
+            Modal.hide();
+        }
     }
 });

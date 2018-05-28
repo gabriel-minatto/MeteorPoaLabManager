@@ -16,7 +16,32 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
         update(doc) {
 
             doc.$set.updatedAt = new Date();
-            this.result(doc);
+            const threeId = Session.get('threeId');
+            if(!threeId) this.result(doc);
+
+            const stepId = Session.get('stepId');
+            const newStep = doc.$set;
+            newStep._id = stepId;
+
+            const projectId = FlowRouter.getParam('id');
+
+            const project = Projects.findOne({
+                _id: projectId
+            });
+
+            project.steps =
+                atualiza(threeId)
+                .em(project.steps)
+                .por(newStep);
+
+            Meteor.call('updateProject', projectId, {
+                steps: project.steps
+            });
+
+            Session.set('threeId', undefined);
+            Session.set('stepId', undefined);
+            delete Session.keys.threeId;
+            delete Session.keys.stepId;
         }
     },
 
@@ -37,6 +62,8 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
         if(fatherId == undefined && push == undefined) return;
 
         const project = Projects.findOne({ _id: projectId });
+
+        this.insertDoc._id = result;
 
         const newChild = {
             fatherId: fatherId,
@@ -63,6 +90,38 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
 
     }
 });
+
+function atualiza(threeId) {
+    return {
+        em(threeNodes) {
+            return {
+                por(updatedStep) {
+                    return threeNodes.reduce((ant, pos, key, arr) => {
+
+                        if (threeId == pos.threeId) {
+
+                            pos.stepNode = Object.assign(pos.stepNode, updatedStep);
+                            ant.push(pos);
+                            return ant;
+                        }
+
+                        if (pos.stepNode.children && pos.stepNode.children.length) {
+
+                            pos.stepNode.children =
+                                atualiza(threeId)
+                                .em(pos.stepNode.children)
+                                .por(updatedStep);
+                        }
+
+                        ant.push(pos);
+                        return ant;
+
+                    }, []);
+                }
+            }
+        }
+    }
+}
 
 function procura(fatherId) {
 

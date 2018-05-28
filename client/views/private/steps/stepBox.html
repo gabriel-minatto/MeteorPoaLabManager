@@ -1,38 +1,40 @@
 <template name="stepBox">
-    {{ #with step }}
-        <div class="stepArea">
-            <div class="card stepCard">
-                    {{ #if ../nodeControls }}
-                        {{ #with ../nodeControls }}
-                            {{ #if this.fatherId }}
-                                <i class="fa fa-window-close deleteStepBtn" data-threeid="{{ this.threeId }}" data-stepid="{{ this.fatherId }}" aria-hidden="true"></i>
-                            {{ /if }}
-                        {{ /with }}
-                    {{ else }}
-                        <i class="fa fa-window-close deleteStepBtn" aria-hidden="true"></i>
-                    {{ /if }}
-                    <a href="{{ pathFor ../routeName id=this._id }}">
-                    {{ #with getStepCover }}
-                        <img class="card-img-top" src="{{ this.url store='stepImagesStore' }}" />
+    <div class="stepArea">
+        <div class="card stepCard">
+                {{ #if nodeControls }}
+                    {{ #with nodeControls }}
+                        {{ #if this.fatherId }}
+                            <i class="fa fa-window-close deleteStepBtn" data-threeid="{{ this.threeId }}" data-stepid="{{ this.fatherId }}" aria-hidden="true"></i>
+                            <img class="card-img-top editStepAnchor"
+                                src="{{ getStepCover.url store='stepImagesStore' }}"
+                                data-stepid="{{ getStep._id }}"
+                                data-threeid="{{ this.threeId }}" />
+                        {{ else }}
+                            <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" />
+                        {{ /if }}
                     {{ /with }}
+                {{ else }}
+                    <i class="fa fa-window-close deleteStepBtn" aria-hidden="true"></i>
+                    <a href="{{ pathFor routeName id=getStep._id }}">
+                        <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" />
                     </a>
-                <div class="card-header node-title">{{ this.title }}</div>
-                {{ #if ../nodeControls }}
-                    {{ #with ../nodeControls }}
-                        {{ #if this.left }}
-                            <i class="fa fa-caret-square-o-left fa-2x stepBtn leftStepBtn" data-stepid="{{ this.fatherId }}" data-push="" aria-hidden="true"></i>
-                        {{ /if }}
-                        {{ #if this.right }}
-                            <i class="fa fa-caret-square-o-right fa-2x stepBtn rightStepBtn" data-stepid="{{ this.fatherId }}" data-push="true" aria-hidden="true"></i>
-                        {{ /if }}
-                        {{ #if this.down }}
-                            <i class="fa fa-caret-square-o-down fa-2x stepBtn downStepBtn" data-stepid="{{ this.threeId }}" aria-hidden="true"></i>
-                        {{ /if }}
-                    {{ /with }}
                 {{ /if }}
-            </div>
+            <div class="card-header node-title">{{ getStep.title }}</div>
+            {{ #if nodeControls }}
+                {{ #with nodeControls }}
+                    {{ #if this.left }}
+                        <i class="fa fa-caret-square-o-left fa-2x stepBtn leftStepBtn" data-stepid="{{ this.fatherId }}" data-push="" aria-hidden="true"></i>
+                    {{ /if }}
+                    {{ #if this.right }}
+                        <i class="fa fa-caret-square-o-right fa-2x stepBtn rightStepBtn" data-stepid="{{ this.fatherId }}" data-push="true" aria-hidden="true"></i>
+                    {{ /if }}
+                    {{ #if this.down }}
+                        <i class="fa fa-caret-square-o-down fa-2x stepBtn downStepBtn" data-stepid="{{ this.threeId }}" aria-hidden="true"></i>
+                    {{ /if }}
+                {{ /with }}
+            {{ /if }}
         </div>
-    {{ /with }}
+    </div>
     <style>
 
         .card-img-top {

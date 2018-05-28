@@ -73,16 +73,13 @@ Template.projectSteps.events({
 
     'click .stepBtn, click .firstStepBtn': function (e, t) {
 
-        const threeNodes = Template.instance().threeNodes.get();
         const fatherId = e.target.dataset.stepid;
         const push = e.target.dataset.push;
 
         Session.set('fatherId', fatherId);
         Session.set('push', push);
 
-        Modal.show('stepsNewModal', {
-            hideBack: true
-        });
+        Modal.show('stepsNewEditModal');
 
     },
 
@@ -104,7 +101,25 @@ Template.projectSteps.events({
 
     'click #newStepModalBtn': function(e, t) {
 
-        Modal.show('stepsNewModal', { hideBack : true });
+        Modal.show('stepsNewEditModal');
+    },
+
+    'click .editStepAnchor': function(e, t) {
+
+        e.preventDefault();
+        const stepId = e.target.dataset.stepid;
+        const threeId = e.target.dataset.threeid;
+
+        const threeNodes = Template.instance().threeNodes.get();
+
+        const step = encontraNodo(threeId).em(threeNodes);
+
+        Session.set('threeId', threeId);
+        Session.set('stepId', stepId);
+        Modal.show('stepsNewEditModal', {
+            step: step,
+            editMode: true
+        });
     }
 });
 
@@ -145,6 +160,30 @@ function tranforma(threeNodes) {
                     return mapNode;
                 }
             }
+        }
+    }
+}
+
+function encontraNodo(threeId) {
+    return {
+        em(nodeThree) {
+            return nodeThree.reduce((ant, pos, key, arr) => {
+
+                if (ant) return ant;
+
+                if (pos.threeId == threeId) {
+                    ant = pos.stepNode;
+                    return ant;
+                }
+
+                if (pos.stepNode.children && pos.stepNode.children.length) {
+
+                    ant = encontraNodo(threeId).em(pos.stepNode.children);
+                }
+
+                return ant;
+
+            }, false);
         }
     }
 }

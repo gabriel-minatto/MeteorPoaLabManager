@@ -2,12 +2,17 @@ Template.stepBox.onCreated(function(){
 
     subsGlobal.subscribe('allStepImages');
 
+    this.step = new ReactiveVar({});
+
     const self = this;
 
     this.autorun(function(){
 
         if (!subsGlobal.ready()) return;
 
+        const step = Template.currentData().step;
+
+        self.step.set(step);
     })
 
 });
@@ -22,12 +27,19 @@ Template.stepBox.helpers({
             url:(arg) => '/images/poalab.png'
         }
 
-        if (!this.imagesIds) return defaultImg;
+        const step = Template.instance().step.get();
 
-        var img = StepImages.findOne({ _id: this.imagesIds[0] });
+        if (!step || !step.imagesIds) return defaultImg;
+
+        var img = StepImages.findOne({ _id: step.imagesIds[0] });
 
         if(!img) return defaultImg;
 
         return img;
+    },
+
+    getStep() {
+
+        return Template.instance().step.get();
     }
 });

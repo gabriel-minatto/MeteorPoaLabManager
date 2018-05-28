@@ -1,15 +1,23 @@
-<template name="stepsNewModal">
-    <div class="modal fade" id="stepsNewModal">
+<template name="stepsNewEditModal">
+<div class="modal fade" id="stepsNewEditModal">
         <div class="modal-dialog m-auto">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h4 class="modal-title">Nova Etapa</h4>
+                    {{#if editMode }}
+                        <h4 class="modal-title">Editar Etapa</h4>
+                    {{ else }}
+                        <h4 class="modal-title">Nova Etapa</h4>
+                    {{ /if }}
                     <div class="modal-closeBtn" data-dismiss="modal">x</div>
                 </div>
 
                 <div class="modal-body">
-                    {{> stepsNew  hideBack=true }}
+                    {{#if editMode }}
+                        {{> stepsEdit hideBack=true step=step }}
+                    {{ else }}
+                        {{> stepsNew hideBack=true }}
+                    {{ /if }}
                 </div>
 
                 <div class="modal-footer d-none">
