@@ -7,7 +7,7 @@
     "updates": "meteor update && meteor npm install && npm install",
     "installs": "meteor npm install --save @babel/runtime",
     "removes": "meteor remove autopublish insecure",
-    "start": "meteor --release 1.6.1.1",
+    "start": "meteor --release 1.6.1.1 --settings settings.json",
     "build-start": "npm run updates && npm run installs && npm run start"
   },
   "dependencies": {

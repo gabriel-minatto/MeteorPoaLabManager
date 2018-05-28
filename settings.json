@@ -1,0 +1,25 @@
+{
+    "private": {
+        "smtp": {
+            "EMAIL_FROM": "",
+            "PORT": "",
+            "EMAIL_SERVIDOR": "",
+            "EMAIL_SENHA": ""
+        },
+        "defaultAdmins": [
+            {
+                "username": "sample",
+                "email": "sample@sample.com",
+                "password": "123456",
+                "roles": [ "sample1", "sample2" ]
+            },
+            {
+                "username": "sample2",
+                "email": "sample2@sample2",
+                "password": "sample",
+                "roles": [ "sample1", "sample2" ]
+            }
+        ]
+    },
+    "public": { }
+}
