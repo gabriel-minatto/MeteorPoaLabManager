@@ -71,7 +71,7 @@ Template.projectSteps.helpers({
 
 Template.projectSteps.events({
 
-    'click .stepBtn': function (e, t) {
+    'click .stepBtn, click .firstStepBtn': function (e, t) {
 
         const threeNodes = Template.instance().threeNodes.get();
         const fatherId = e.target.dataset.stepid;
@@ -83,23 +83,6 @@ Template.projectSteps.events({
         Modal.show('stepsNewModal', {
             hideBack: true
         });
-
-        /*const step = Steps.findOne({_id:"2GvPtnHXR82hJwsGx"});
-        const newChild = {
-            fatherId: fatherId,
-            stepNode: step,
-            threeId: Random.id()
-        };
-
-        const newNodeThree = procura(fatherId)
-            .em(threeNodes)
-            .insere(newChild, push);
-
-        const id = FlowRouter.getParam('id');
-
-        Meteor.call('updateProject', id, {
-            steps: newNodeThree
-        });*/
 
     },
 

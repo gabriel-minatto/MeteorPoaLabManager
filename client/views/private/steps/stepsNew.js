@@ -10,19 +10,6 @@ Template.stepsNew.onCreated(function() {
     });
 });
 
-
-Template.stepsNew.onRendered(function() {
-
-    this.autorun(function () {
-
-        if (!subsGlobal.ready()) return;
-
-        const checkboxes = document.querySelectorAll("input[type='checkbox']");
-
-        Array.from(checkboxes).forEach(inpt => new Switchery(inpt));
-    });
-});
-
 Template.stepsNew.events({
 
     'submit #insertStepForm': function(e, t) {

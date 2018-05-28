@@ -23,12 +23,12 @@
                                 {{> afQuickField name='title'}}
                                 {{> afQuickField name='description'}}
                                 <div class="row">
-                                    <div class="col-xl-2">
+                                    <div class="col-xl-3">
                                         {{> afQuickField name='public' type='boolean-checkbox'}}
                                     </div>
                                     {{ #if checkUserIsInRole 'admin' }}
-                                        <div class="col-xl-2">
-                                            {{> afQuickField name='active' type='boolean-checkbox'}}
+                                        <div class="col-xl-2 pl-0">
+                                            {{> afQuickField name='active' value=true type='boolean-checkbox'}}
                                         </div>
                                     {{ /if }}
                                 </div>
