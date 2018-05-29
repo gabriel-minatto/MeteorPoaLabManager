@@ -107,7 +107,6 @@ Template.projectSteps.events({
     'click .editStepAnchor': function(e, t) {
 
         e.preventDefault();
-        const stepId = e.target.dataset.stepid;
         const threeId = e.target.dataset.threeid;
 
         const threeNodes = Template.instance().threeNodes.get();
@@ -115,7 +114,6 @@ Template.projectSteps.events({
         const step = encontraNodo(threeId).em(threeNodes);
 
         Session.set('threeId', threeId);
-        Session.set('stepId', stepId);
         Modal.show('stepsNewEditModal', {
             step: step,
             editMode: true

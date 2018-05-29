@@ -11,9 +11,10 @@
     "build-start": "npm run updates && npm run installs && npm run start"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.47",
+    "@babel/runtime": "^7.0.0-beta.49",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^2.0.1",
+    "jshint": "^2.9.5",
     "meteor-node-stubs": "^0.3.2",
     "simpl-schema": "^1.5.0"
   },

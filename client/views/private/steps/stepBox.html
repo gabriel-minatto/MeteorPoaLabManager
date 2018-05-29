@@ -14,7 +14,7 @@
                         {{ /if }}
                     {{ /with }}
                 {{ else }}
-                    <i class="fa fa-window-close deleteStepBtn" aria-hidden="true"></i>
+                    <i class="fa fa-window-close deleteStepBtn" aria-hidden="true" data-stepid="{{ getStep._id }}"></i>
                     <a href="{{ pathFor routeName id=getStep._id }}">
                         <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" />
                     </a>

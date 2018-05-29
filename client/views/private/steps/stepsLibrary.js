@@ -54,7 +54,7 @@ Template.stepsLibrary.events({
             focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
         }, (ok) => {
             if(!ok) return;
-            Steps.remove({_id:stepId});
+            Meteor.call('deleteStep', stepId);
         });
     }
 });

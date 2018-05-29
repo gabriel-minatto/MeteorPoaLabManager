@@ -9,39 +9,32 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
 
             if (doc.active == undefined) {
                 doc.active = true;
-            }
+            }            
             this.result(doc);
         },
 
         update(doc) {
 
-            doc.$set.updatedAt = new Date();
+            doc.$set.updatedAt = new Date();            
+            this.result(doc);
+        }
+    },
+    
+    after: {
+        
+        insert(err, result) {
+
             const threeId = Session.get('threeId');
-            if(!threeId) this.result(doc);
 
-            const stepId = Session.get('stepId');
-            const newStep = doc.$set;
-            newStep._id = stepId;
+            if(!threeId || result == 1) return;
 
-            const projectId = FlowRouter.getParam('id');
+            const step = Steps.findOne({ _id: result });
 
-            const project = Projects.findOne({
-                _id: projectId
-            });
-
-            project.steps =
-                atualiza(threeId)
-                .em(project.steps)
-                .por(newStep);
-
-            Meteor.call('updateProject', projectId, {
-                steps: project.steps
-            });
+            atualizarStepProjeto(step, threeId);
 
             Session.set('threeId', undefined);
-            Session.set('stepId', undefined);
             delete Session.keys.threeId;
-            delete Session.keys.stepId;
+            
         }
     },
 
@@ -90,6 +83,27 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
 
     }
 });
+
+function atualizarStepProjeto(doc, threeId) {
+
+    const projectId = FlowRouter.getParam('id');
+
+    const project = Projects.findOne({
+        _id: projectId
+    });
+
+    project.steps =
+        atualiza(threeId)
+        .em(project.steps)
+        .por(doc);
+
+    Meteor.call('updateProject', projectId, {
+        steps: project.steps
+    });
+
+    Meteor.call('deleteStep', doc._id);
+
+}
 
 function atualiza(threeId) {
     return {
