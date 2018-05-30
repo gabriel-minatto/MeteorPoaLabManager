@@ -56,6 +56,10 @@ Template.projectSee.onRendered(function () {
         new Treant(chart_config, null, $);
     });
 
+    window.addEventListener('resize', function (event) {
+        
+    })
+
 });
 
 Template.projectSee.helpers({
@@ -74,10 +78,6 @@ Template.projectSee.helpers({
 
         return Template.instance().project.get();
     }
-});
-
-Template.projectSee.events({
-
 });
 
 function tranforma(threeNodes) {

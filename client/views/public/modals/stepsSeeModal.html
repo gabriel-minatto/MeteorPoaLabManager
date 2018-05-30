@@ -1,15 +1,15 @@
-<template name="stepsChooseModal">
-    <div class="modal fade" id="stepsNewEditModal">
+<template name="stepsSeeModal">
+    <div class="modal fade" id="stepsSeeModal">
             <div class="modal-dialog m-auto">
                 <div class="modal-content">
 
                     <div class="modal-header">
-                        <h4 class="modal-title">Escolher Etapa</h4>
+                        <h4 class="modal-title"></h4>
                         <div class="modal-closeBtn" data-dismiss="modal">x</div>
                     </div>
 
                     <div class="modal-body">
-                        {{> stepsLibrary hideBack=true }}
+                        {{> stepsSee step=getStep }}
                     </div>
 
                     <div class="modal-footer d-none">
@@ -27,23 +27,11 @@
                 margin-bottom: 2% !important;
             }
 
-            .modal-dialog .modal-body form {
-                padding-left: 2rem;
-                padding-right: 2rem;
-            }
-
             .modal-closeBtn {
                 padding: 0px 10px;
                 background-color: #e8ebef;
                 border-radius: 3px;
                 cursor: pointer;
-            }
-
-            .modal-content .card-img-top:hover {
-
-               -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
-                -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
-                box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
             }
 
         </style>
