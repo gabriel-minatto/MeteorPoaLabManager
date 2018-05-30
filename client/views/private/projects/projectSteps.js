@@ -73,13 +73,33 @@ Template.projectSteps.events({
 
     'click .stepBtn, click .firstStepBtn': function (e, t) {
 
-        const fatherId = e.target.dataset.stepid;
-        const push = e.target.dataset.push;
+        new Confirmation({
+            message: "Escolha entre criar ou escolher uma etapa existente",
+            title: "Adicionar etapa",
+            cancelText: "Biblioteca",
+			cancel: true,
+            okText: "Nova",
+            success: true, // whether the button should be green or red
+            focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
+        }, (choose) => {
 
-        Session.set('fatherId', fatherId);
-        Session.set('push', push);
 
-        Modal.show('stepsNewEditModal');
+                const fatherId = e.target.dataset.stepid;
+                const push = e.target.dataset.push;
+
+                Session.set('fatherId', fatherId);
+                Session.set('push', push);
+
+                if(choose) {
+                    
+                    Modal.show('stepsNewEditModal');
+                    return;
+                } 
+
+                Modal.show('stepsChooseModal');
+
+            }
+        );
 
     },
 

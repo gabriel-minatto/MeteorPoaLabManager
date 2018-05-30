@@ -4,7 +4,9 @@
                 {{ #if nodeControls }}
                     {{ #with nodeControls }}
                         {{ #if this.fatherId }}
-                            <i class="fa fa-window-close deleteStepBtn" data-threeid="{{ this.threeId }}" data-stepid="{{ this.fatherId }}" aria-hidden="true"></i>
+                            {{ #unless ../hideBack }}
+                                <i class="fa fa-window-close deleteStepBtn" data-threeid="{{ this.threeId }}" data-stepid="{{ this.fatherId }}" aria-hidden="true"></i>
+                            {{ /unless }}
                             <img class="card-img-top editStepAnchor"
                                 src="{{ getStepCover.url store='stepImagesStore' }}"
                                 data-stepid="{{ getStep._id }}"
@@ -14,10 +16,14 @@
                         {{ /if }}
                     {{ /with }}
                 {{ else }}
-                    <i class="fa fa-window-close deleteStepBtn" aria-hidden="true" data-stepid="{{ getStep._id }}"></i>
-                    <a href="{{ pathFor routeName id=getStep._id }}">
-                        <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" />
-                    </a>
+                    {{ #if hideBack }}
+                        <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" data-stepid="{{ getStep._id }}" />
+                    {{ else }}
+                        <i class="fa fa-window-close deleteStepBtn" aria-hidden="true" data-stepid="{{ getStep._id }}"></i>
+                        <a href="{{ pathFor routeName id=getStep._id }}">
+                            <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" />
+                        </a>
+                    {{ /if }}
                 {{ /if }}
             <div class="card-header node-title">{{ getStep.title }}</div>
             {{ #if nodeControls }}
@@ -29,7 +35,7 @@
                         <i class="fa fa-caret-square-o-right fa-2x stepBtn rightStepBtn" data-stepid="{{ this.fatherId }}" data-push="true" aria-hidden="true"></i>
                     {{ /if }}
                     {{ #if this.down }}
-                        <i class="fa fa-caret-square-o-down fa-2x stepBtn downStepBtn" data-stepid="{{ this.threeId }}" aria-hidden="true"></i>
+                        <i class="fa fa-caret-square-o-down fa-2x stepBtn downStepBtn mx-auto" data-stepid="{{ this.threeId }}" aria-hidden="true"></i>
                     {{ /if }}
                 {{ /with }}
             {{ /if }}

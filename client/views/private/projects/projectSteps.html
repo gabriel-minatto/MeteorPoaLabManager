@@ -48,11 +48,16 @@
             min-height: 36vw !important;
         }
 
-        .step-node {
+        #stepsContainer .stepCard {
+            background-color: rgba(0,0,0,0);
+            border: none;
+        }
+
+        #stepsContainer .step-node {
             max-width: 10%;
         }
 
-        .node-title {
+        #stepsContainer .node-title {
             font-size: 13px;
             padding: 2px;
             opacity: 0.8;
@@ -66,44 +71,43 @@
             display: none;
         }
 
-        .step-node:hover .node-title {
+        #stepsContainer .step-node:hover .node-title {
             display: block;
         }
 
-        .stepArea {
+        #stepsContainer .stepArea {
             max-width: 105%;
             z-index: 999;
         }
 
-        .step-node:hover .rightStepBtn,
-        .step-node:hover .leftStepBtn,
-        .step-node:hover .downStepBtn {
+        #stepsContainer .step-node:hover .rightStepBtn,
+        #stepsContainer .step-node:hover .leftStepBtn,
+        #stepsContainer .step-node:hover .downStepBtn {
             display: block;
         }
 
-        .stepBtn {
+        #stepsContainer .stepBtn {
             background-color: white;
             border-radius: 5px;
             display: none;
         }
 
 
-        .leftStepBtn {
+        #stepsContainer .leftStepBtn {
             position: absolute;
             right: 80%;
             top: 32%;
         }
 
-        .rightStepBtn {
+        #stepsContainer .rightStepBtn {
             position: absolute;
             left: 80%;
             top: 32%;
         }
 
-        .downStepBtn {
-            position: absolute;
-            left: 35%;
-            top: 78%;
+        #stepsContainer .downStepBtn {
+            position: relative;
+            margin-top: -18%;
         }
 
     </style>

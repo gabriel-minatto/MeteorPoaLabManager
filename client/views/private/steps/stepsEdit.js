@@ -33,14 +33,3 @@ Template.stepsEdit.helpers({
         return Template.instance().step.get();
     }
 });
-
-Template.stepsEdit.events({
-
-    'submit #updateStepForm': function (e, t) {
-
-        if (FlowRouter.getRouteName() == 'project-steps') {
-
-            Modal.hide();
-        }
-    }
-});

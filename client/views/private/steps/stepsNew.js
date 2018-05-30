@@ -27,15 +27,3 @@ Template.stepsNew.helpers({
         return Template.instance().step.get();
     }
 });
-
-
-Template.stepsNew.events({
-
-    'submit #insertStepForm, submit #updateStepForm': function(e, t) {
-
-        if (FlowRouter.getRouteName() == 'project-steps') {
-
-            Modal.hide();
-        }
-    }
-});

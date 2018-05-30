@@ -9,37 +9,38 @@
                             <div class="col-xl-9">
                                 <h2>Biblioteca de Etapas</h2>
                             </div>
-                            <div class="col-xl-2 pr-0">
-                                <a href="{{ pathFor 'steps-new'}}">
-                                    <button class="btn btn-success float-right">Nova Etapa</button>
-                                </a>
-                            </div>
-                            <div class="col-xl-1">
-                                <a href="{{ pathFor 'projects'}}">
-                                    <button class="btn btn-default float-right">Voltar</button>
-                                </a>
+                            {{ #unless hideBack }}
+                                <div class="col-xl-2 pr-0">
+                                    <a href="{{ pathFor 'steps-new'}}">
+                                        <button class="btn btn-success float-right">Nova Etapa</button>
+                                    </a>
+                                </div>
+                                <div class="col-xl-1">
+                                    <a href="{{ pathFor 'projects'}}">
+                                        <button class="btn btn-default float-right">Voltar</button>
+                                    </a>
+                                </div>
+                            {{ /unless }}
                             </div>
                         </div>
-                    </div>
                     <div class="card-body" style="padding-top: 0px;">
                         <div class="row">
                             <div class="col-xl-12">
                                 <div class="row">
                                     {{ #each getUserSteps }}
                                         <div class="col-xl-3 mt-4">
-                                            {{> stepBox
-                                                step=this
-                                                routeName='steps-edit'
-                                            }}
-                                            <!-- <div class="card stepCard">
-                                                <i class="fa fa-window-close deleteStepBtn" data-stepid="{{ this._id }}" aria-hidden="true"></i>
-                                                <a href="{{ pathFor 'steps-edit' id=this._id }}">
-                                                    {{ #with getStepCover }}
-                                                        <img class="card-img-top" src="{{ this.url store='stepImagesStore' }}"/>
-                                                    {{ /with }}
-                                                </a>
-                                                <div class="card-header">{{ this.title }}</div>
-                                            </div> -->
+                                            {{ #if ../hideBack }}
+                                                {{> stepBox
+                                                    step=this
+                                                    routeName='steps-edit'
+                                                    hideBack=../hideBack
+                                                }}
+                                            {{ else }}
+                                                {{> stepBox
+                                                    step=this
+                                                    routeName='steps-edit'
+                                                }}
+                                            {{ /if }}
                                         </div>
                                     {{ /each }}
                                 </div>
@@ -51,30 +52,45 @@
 
         </div>
     </div>
-    <style>
-        .card-img-top {
-            width: 100%;
-            height: 10vw;
-            object-fit: cover;
-        }
-        .deleteStepBtn {
-            right: -10px;
-            top: -10px;
-            position: absolute;
-            float: right;
-            padding: 2px 5px;
-            background-color: white;
-            display: none;
-        }
-        .stepCard:hover > .deleteStepBtn{
-            display: inline-block;
-        }
-
-        /*.deleteStepBtn:hover {
-            float:right;
-            display:inline-block;
-            padding:2px 5px;
-            background:#ccc;
-        }*/
-    </style>
+    {{ #if hideBack }}
+        <style>
+            .modal-content .card-img-top {
+                width: 100%;
+                height: 10vw;
+                object-fit: cover;
+            }
+            .modal-content .deleteStepBtn {
+                right: -10px;
+                top: -10px;
+                position: absolute;
+                float: right;
+                padding: 2px 5px;
+                background-color: white;
+                display: none;
+            }
+            .modal-content .stepCard:hover > .deleteStepBtn{
+                display: inline-block;
+            }
+        </style>
+    {{ else }}
+        <style>
+            .card-img-top {
+                width: 100%;
+                height: 10vw;
+                object-fit: cover;
+            }
+            .deleteStepBtn {
+                right: -10px;
+                top: -10px;
+                position: absolute;
+                float: right;
+                padding: 2px 5px;
+                background-color: white;
+                display: none;
+            }
+            .stepCard:hover > .deleteStepBtn{
+                display: inline-block;
+            }
+        </style>
+    {{ /if }}
 </template>
