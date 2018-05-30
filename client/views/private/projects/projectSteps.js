@@ -65,7 +65,7 @@ Template.projectSteps.helpers({
 
     projectHasSteps() {
 
-        return Template.instance().nodeStructure.get().length;
+        return Object.keys(Template.instance().nodeStructure.get()).length;
     }
 });
 

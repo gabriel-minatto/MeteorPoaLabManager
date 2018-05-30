@@ -9,10 +9,8 @@ Meteor.publish('activeUserSteps', function () {
         return Steps.find();
 
     const filtro = {
-        $or: [
-            { 'owner._id' : Meteor.userId() },
-            { 'active': true }
-        ]
+        'owner._id': Meteor.userId(),
+        'active': true
     };
 
     return Steps.find(filtro);

@@ -9,7 +9,7 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
 
             if (doc.active == undefined) {
                 doc.active = true;
-            }            
+            }
             this.result(doc);
         },
 
@@ -19,11 +19,11 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
             this.result(doc);
         }
     },
-    
+
     after: {
-        
+
         insert(err, result) {
-            
+
             const params = {
 
                 result: result,
@@ -42,7 +42,7 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
             delete Session.keys.threeId;
 
             Modal.hide();
-            
+
         }
     },
 
@@ -55,9 +55,9 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
             FlowRouter.go('steps-library');
             return;
         }
-        
+
         const params = {
-            
+
             projectId: FlowRouter.getParam('id'),
             fatherId: Session.get('fatherId'),
             push: Session.get('push')

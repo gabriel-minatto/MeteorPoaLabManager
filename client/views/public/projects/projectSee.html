@@ -1,0 +1,114 @@
+<template name="projectSee">
+    <div class="container mb-3" style="max-width:100%;">
+        <div class="row">
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-xl-11">
+                                <h2>{{ getProject.title }}</h2>
+                            </div>
+                            <div class="col-xl-1">
+                                <a href="{{ pathFor 'projects'}}">
+                                    <button class="btn btn-default float-right">Voltar</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="col-xl-12">
+                            <div class="row">
+                                <div class="col-xl-8">
+                                    <div class="row">
+                                        <div class="card bg-light" style="width: 100%; border-width: 0px 1px;">
+                                            <div class="container-fluid" id="stepsContainer">
+                                                {{ #unless projectHasSteps }}
+                                                <div class="row">
+                                                    <div class="col-xl-2 mx-auto mt-4">
+                                                        <button class="btn btn-info float-right firstStepBtn" data-stepid="false" data-push="true">Primeira Etapa</button>
+                                                    </div>
+                                                </div>
+                                                {{ /unless }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{> projectSeeInfo project=getProject }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <style>
+        #stepsContainer {
+            padding-bottom: 1.5rem !important;
+            min-height: 36vw !important;
+        }
+
+        #stepsContainer .stepCard {
+            background-color: rgba(0, 0, 0, 0);
+            border: none;
+        }
+
+        #stepsContainer .step-node {
+            max-width: 10%;
+        }
+
+        #stepsContainer .node-title {
+            font-size: 13px;
+            padding: 2px;
+            opacity: 0.8;
+            position: absolute;
+            bottom: 60%;
+            left: 107%;
+            white-space: nowrap;
+            z-index: 99;
+            color: white;
+            background-color: black;
+            display: none;
+        }
+
+        #stepsContainer .step-node:hover .node-title {
+            display: block;
+        }
+
+        #stepsContainer .stepArea {
+            max-width: 105%;
+            z-index: 999;
+        }
+
+        #stepsContainer .step-node:hover .rightStepBtn,
+        #stepsContainer .step-node:hover .leftStepBtn,
+        #stepsContainer .step-node:hover .downStepBtn {
+            display: block;
+        }
+
+        #stepsContainer .stepBtn {
+            background-color: white;
+            border-radius: 5px;
+            display: none;
+        }
+
+
+        #stepsContainer .leftStepBtn {
+            position: absolute;
+            right: 80%;
+            top: 32%;
+        }
+
+        #stepsContainer .rightStepBtn {
+            position: absolute;
+            left: 80%;
+            top: 32%;
+        }
+
+        #stepsContainer .downStepBtn {
+            position: relative;
+            margin-top: -18%;
+        }
+    </style>
+</template>
