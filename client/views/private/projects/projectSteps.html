@@ -6,11 +6,8 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="row align-items-center">
-                            <div class="col-xl-9">
+                            <div class="col-xl-11">
                                 <h2>Etapas do Projeto</h2>
-                            </div>
-                            <div class="col-xl-2 pr-0">
-                                <button class="btn btn-success float-right" id="newStepModalBtn">Nova Etapa</button>
                             </div>
                             <div class="col-xl-1">
                                 <a href="{{ pathFor 'projects'}}">
@@ -23,7 +20,7 @@
                         <div class="col-xl-12">
                             <div class="row">
                                 <div class="card bg-light" style="width: 100%;">
-                                    <div class="container-fluid" id="stepsContainer">
+                                    <div class="container-fluid animated fadeInLeft" id="stepsContainer">
                                         {{ #unless projectHasSteps }}
                                             <div class="row">
                                                 <div class="col-xl-2 mx-auto mt-4">

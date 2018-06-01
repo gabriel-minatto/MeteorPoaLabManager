@@ -53,12 +53,23 @@ Template.projectSee.onRendered(function () {
 
         };
 
-        new Treant(chart_config, null, $);
+        const containerClasses = document.querySelector('#stepsContainer').classList;
+
+        containerClasses.remove('animated');
+        containerClasses.remove('fadeInLeft');
+
+        new Treant(chart_config, () => {
+
+            containerClasses.add('animated');
+            containerClasses.add('fadeInLeft');
+        }, $);
+
     });
 
-    window.addEventListener('resize', function (event) {
-        
-    })
+    window.addEventListener('resize', function(event) {
+
+        self.nodeStructure.set(self.nodeStructure.get());
+    });
 
 });
 
