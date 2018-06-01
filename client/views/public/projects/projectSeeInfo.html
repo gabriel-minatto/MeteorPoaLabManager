@@ -1,51 +1,74 @@
 <template name="projectSeeInfo">
-    <div class="col-xl-4" style="position: absolute; right: 0;">
+    <div class="infoContainer">
         {{ #if showInfo }}
-            <div class="row animated fadeInRight">
-                <span class="btn btn-info showInfoBtn showInfoBtn-open">Esconder</span>
-            </div>
-            <div class="row animated fadeInRight">
-                <div class="card bg-light" style="width: 100%; border-width: 0px 1px;">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-xl-12">
-                                {{ #with getProjectCover }}
-                                <img class="card-img mb-2" src="{{ this.url store='projectCoversStore' }}">
-                                {{ /with }}
-                                {{ #with getProjectDocs }}
-                                <a class="btn btn-success mb-2" href="{{ this.url store='projectManualsStore' }}" download="file">
-                                    Download Doc's
-                                </a>
-                                {{ /with }}
-                                <div style="max-height: 70%; overflow-y: scroll; position: absolute;">
-                                    <p>{{ getProject.description }}</p>
+            <div class="col-xl-4 infoArea h-100">
+                <div class="row h-100" id="showInfoBox">
+                    <div class="col-xl-12 pl-0 pr-0 h-100">
+                        <div class="card bg-light h-100 showInfoBox">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                {{ #with getProjectCover }}
+                                                <img class="card-img mb-2" src="{{ this.url store='projectCoversStore' }}">
+                                                {{ /with }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                {{ #with getProjectDocs }}
+                                                <a class="btn btn-success mb-2" href="{{ this.url store='projectManualsStore' }}" download="file">
+                                                    Download Doc's
+                                                </a>
+                                                {{ /with }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div style="position: absolute;">
+                                                    <p>{{ getProject.description }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <span class="btn btn-info showInfoBtn showInfoBtn-open">Esconder</span>
                 </div>
             </div>
         {{ else }}
-            <div class="row animated fadeInLeft">
-                <span class="btn btn-info showInfoBtn showInfoBtn-closed">Informações</span>
+            <div class="col-xl-1 infoArea h-100 {{ #unless showInfo }}pr-0{{ /unless }}">
+                <span class="btn btn-info float-right showInfoBtn showInfoBtn-closed animated fadeIn {{ #if showInfo }}d-none{{ /if }}">Informações</span>
             </div>
         {{ /if }}
     </div>
     <style>
 
+        .infoArea {
+            position: absolute;
+            right: 0;
+        }
+
+        .showInfoBox {
+            border-width: 0px 1px;
+            overflow-y: scroll;
+        }
+
         .showInfoBtn {
             transform: rotate(-90deg);
             position: absolute;
-            margin-top: 30%;
-            z-index: 99;
+            top: 10rem;
         }
 
         .showInfoBtn-open {
-            left: -14%;
+            left: -3.9rem;
         }
 
         .showInfoBtn-closed {
-            right: -10%;
+            right: -2.5rem;
         }
     </style>
 </template>

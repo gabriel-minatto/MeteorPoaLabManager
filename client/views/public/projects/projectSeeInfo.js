@@ -58,3 +58,16 @@ Template.projectSeeInfo.events({
         t.showInfo.set(!t.showInfo.get());
     }
 });
+
+Template.projectSeeInfo.animations({
+
+    ".infoArea": {
+        container: ".infoContainer",
+        insert: {
+            class: "animated fast fadeInRight"
+        },
+        remove: {
+            class: "animated fast fadeOutRight"
+        }
+    }
+});
