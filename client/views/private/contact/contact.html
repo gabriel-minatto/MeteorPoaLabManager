@@ -1,0 +1,34 @@
+<template name="contact">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-header">
+                        <legend>Contato/Reportar bug</legend>
+                    </div>
+                    {{#autoForm collection="Contacts" id="insertContactForm" type="insert"}}
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-xl-8">
+                                    {{> afQuickField name='about'}}
+                                    {{> afQuickField name='description'}}
+                                    {{> afQuickField name='type'}}
+                                    {{> afQuickField name='contact'}}
+                                </div>
+                                <div class="col-xl-4">
+                                    {{> afQuickField name="imageId"
+                                        type="cfs-file"
+                                        collection="contactImages"
+                                        placeholder="Clique para selecionar" }}
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    {{/autoForm}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

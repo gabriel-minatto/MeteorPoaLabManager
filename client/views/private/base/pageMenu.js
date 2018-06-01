@@ -7,6 +7,7 @@ Template.pageMenu.helpers({
             ['machines', 'Máquinas'],
             ['projects', 'Projetos'],
             ['steps-library', 'Etapas'],
+            ['contact', 'Contato/BugReport'],
             ['logout', 'Sair']
         ];
     },
