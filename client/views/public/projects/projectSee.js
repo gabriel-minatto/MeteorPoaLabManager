@@ -91,6 +91,18 @@ Template.projectSee.helpers({
     }
 });
 
+Template.projectSee.events({
+
+    'click .step-node': function(e, t) {
+
+        const threeId = e.target.dataset.threeid;
+        const project = Template.instance().project.get();
+        const step = encontraNodo(threeId).em(project.steps);
+
+        Modal.show('stepsSeeModal', { step:step });
+    }
+});
+
 function tranforma(threeNodes) {
 
     return {
@@ -106,6 +118,7 @@ function tranforma(threeNodes) {
                             innerHTML: UI.toHTMLWithData(Template.stepBox, {
                                 step: nodo,
                                 routeName: 'project-see',
+                                threeId: val.threeId,
                                 hideBack: true,
                                 nodeControls: false
                             })

@@ -15,7 +15,7 @@ Template.stepsSeeModal.onCreated(function() {
     });
 });
 
-Template.stepsSeeModal.onCreated({
+Template.stepsSeeModal.helpers({
 
     getStep() {
 

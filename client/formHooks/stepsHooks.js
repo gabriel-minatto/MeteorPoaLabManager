@@ -31,6 +31,10 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
                 projectId: FlowRouter.getParam('id')
             };
 
+            if (!params.result || !params.threeId || !params.projectId) {
+                return;
+            }
+
             Meteor.call('updatedStepInProject', params, (err, res) => {
 
                 if(!err) return;

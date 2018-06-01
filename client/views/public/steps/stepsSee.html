@@ -1,3 +1,100 @@
 <template name="stepsSee">
-    <h1>Step loka</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 m-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <div id="stepCarousel" class="carousel slide" data-ride="carousel">
+                                            <ul class="carousel-indicators">
+                                                {{ #each getStepCover }}
+                                                    <li data-target="#stepCarousel" data-slide-to="{{ @index }}" class="{{ #unless @index != 0 }}active{{ /unless }}"></li>
+                                                {{ /each }}
+                                            </ul>
+                                            <div class="carousel-inner">
+                                                {{ #each getStepCover }}
+                                                    <div class="carousel-item {{ #unless @index != 0 }}active{{ /unless }}">
+                                                        <img class="card-img-step-see" src="{{ this.url store='stepImagesStore' }}">
+                                                    </div>
+                                                {{ /each }}
+                                            </div>
+                                            <!-- Left and right controls -->
+                                            <a class="carousel-control-prev" href="#stepCarousel" data-slide="prev">
+                                                <span class="carousel-control-prev-icon"></span>
+                                            </a>
+                                            <a class="carousel-control-next" href="#stepCarousel" data-slide="next">
+                                                <span class="carousel-control-next-icon"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ #if stepHasDocs }}
+                                    <div class="row">
+                                        <div class="col-xl-12 text-center mt-4">
+                                            <a class="btn btn-info" href="{{ getStepDocs.url store='stepManualsStore' }}" download="file">
+                                                Download Doc's
+                                            </a>
+                                        </div>
+                                    </div>
+                                {{ /if }}
+                                <div class="row">
+                                    <div class="col-xl-12 mt-4">
+                                        <legend>Instruções</legend>
+                                        <div class="legendLine"></div>
+                                    </div>
+                                    <div class="col-xl-12 mt-4">
+                                        <p>{{ getStep.instructions }}</p>
+                                    </div>
+                                    {{ #if stepHasEmbed }}
+                                        <div class="col-xl-12">
+                                            <legend>Conteúdo Externo</legend>
+                                            <div class="legendLine"></div>
+                                        </div>
+                                        {{ #each getStepEmbed }}
+                                            <div class="col-xl-12 mt-4">
+                                                <div class="card-embed-step-see">
+                                                    {{{ this }}}
+                                                </div>
+                                            </div>
+                                        {{ /each }}
+                                    {{ /if }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+
+        .legendLine {
+
+            margin-top: 0px;
+            border: 1px solid #E6E6E6;
+            width: 100%;
+        }
+
+        .card-embed-step-see iframe {
+            width: 100% !important;
+            object-fit: cover;
+            height: 34vw;
+            border-top-left-radius: calc(0.25rem - 1px) !important;
+            border-top-right-radius: calc(0.25rem - 1px) !important;
+        }
+
+        .card-img-step-see {
+            width: 100% !important;
+            object-fit: cover;
+            height: 34vw;
+            border-top-left-radius: calc(0.25rem - 1px) !important;
+            border-top-right-radius: calc(0.25rem - 1px) !important;
+        }
+    </style>
+
 </template>
