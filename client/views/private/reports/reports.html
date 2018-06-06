@@ -1,4 +1,4 @@
-<template name="contact">
+<template name="reports">
 
     <div class="container">
         <div class="row">
@@ -7,20 +7,22 @@
                     <div class="card-header">
                         <legend>Contato/Reportar bug</legend>
                     </div>
-                    {{#autoForm collection="Contacts" id="insertContactForm" type="insert"}}
+                    {{#autoForm collection="Reports" id="insertReportForm" type="insert"}}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-xl-8">
-                                    {{> afQuickField name='about'}}
+                                    {{> afQuickField name='subject'}}
+                                    {{> afQuickField name='type' options=getReportOptions firstOption='Selecione uma opção' }}
                                     {{> afQuickField name='description'}}
-                                    {{> afQuickField name='type'}}
-                                    {{> afQuickField name='contact'}}
                                 </div>
                                 <div class="col-xl-4">
-                                    {{> afQuickField name="imageId"
-                                        type="cfs-file"
-                                        collection="contactImages"
-                                        placeholder="Clique para selecionar" }}
+                                    {{> afQuickField name="filesIds"
+                                    type="cfs-files"
+                                    collection="reportFiles"
+                                    placeholder="Clique para selecionar" }}
+                                    <div class="mt-3">
+                                        {{> afObjectField name='contact'}}
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Salvar</button>

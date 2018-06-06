@@ -13,6 +13,7 @@ autoupdate@1.4.0
 babel-compiler@7.0.9
 babel-runtime@1.2.2
 base64@1.0.11
+bigdsk:inputmask@3.1.63
 binary-heap@1.0.10
 blaze@2.3.2
 blaze-html-templates@1.1.2
@@ -72,6 +73,7 @@ insecure@1.0.7
 jquery@1.11.11
 kadira:blaze-layout@2.3.0
 kadira:flow-router@2.12.1
+ksrv:autoform-inputmask@0.0.2
 launch-screen@1.1.1
 livedata@1.0.18
 localstorage@1.2.0

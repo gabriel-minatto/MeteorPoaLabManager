@@ -19,6 +19,11 @@ AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
     onSuccess(formType, result) {
 
         this.resetForm();
+        const messages = {
+            insert: 'inserida',
+            update: 'atualizada'
+        };
+        Toast.success(`Máquina ${messages[formType]} com sucesso.`);
         FlowRouter.go('machines');
     }
 });

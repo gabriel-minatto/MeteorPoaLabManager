@@ -23,6 +23,11 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
     onSuccess(formType, result) {
 
         this.resetForm();
+        const messages = {
+            insert: 'inserido',
+            update: 'atualizado'
+        };
+        Toast.success(`Projeto ${messages[formType]} com sucesso.`);
         FlowRouter.go('projects');
     }
 });

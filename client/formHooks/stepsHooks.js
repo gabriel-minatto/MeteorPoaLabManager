@@ -56,6 +56,12 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
 
         if (FlowRouter.getRouteName() != 'project-steps') {
 
+            const messages = {
+                insert: 'inserida',
+                update: 'atualizada'
+            };
+            Toast.success(`Etapa ${messages[formType]} com sucesso.`);
+
             FlowRouter.go('steps-library');
             return;
         }
@@ -70,6 +76,9 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
         if(params.fatherId == undefined
             || params.projectId == undefined
             || Session.get('threeId') != undefined) {
+
+            Toast.error('Parâmetros indefinidos.');
+            FlowRouter.go('steps-library');
             return;
         }
 
