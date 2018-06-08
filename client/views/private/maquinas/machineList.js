@@ -16,10 +16,8 @@ Template.machineList.helpers({
     getMachines() {
 
         let filtro = Template.instance().filtro.get();
-        if(!filtro)
-            return Machines.find().fetch();
 
-        return Machines.find(filtro).fetch();
+        return Machines.find(filtro || {}).fetch();
     },
 
     getMachineImage(id) {
