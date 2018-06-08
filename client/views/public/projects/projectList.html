@@ -6,32 +6,37 @@
             <div class="col-lg-3">
                 <h1>Projetos</h1>
             </div>
+            {{ #unless isLoggedIn }}
+                <div class="legendLine ml-3 mr-3"></div>
+            {{ /unless }}
         </div>
         <div class="row">
 
-            <div class="col-lg-3">
+            {{ #if isLoggedIn }}
 
-                <div class="list-group">
-                    <a href="#" data-filter="" class="list-group-item projectFilter">Todos</a>
-                    {{ #if isLoggedIn }}
+                <div class="col-lg-3">
+
+                    <div class="list-group">
+                        <a href="#" data-filter="" class="list-group-item projectFilter">Todos</a>
                         <a href="#" data-filter="userProjects" class="list-group-item projectFilter mb-4">Meus Projetos</a>
-                    {{ /if }}
-                </div>
-                {{ #if checkUserIsInRole 'default-group' and isLoggedIn }}
-                    <div class="text-center mb-4">
-                        <a href="{{ pathFor 'project-new' }}" class="btn btn-success">Novo Projeto</a>
                     </div>
-                {{ /if }}
+                    {{ #if checkUserIsInRole 'default-group' }}
+                        <div class="text-center mb-4">
+                            <a href="{{ pathFor 'project-new' }}" class="btn btn-success">Novo Projeto</a>
+                        </div>
+                    {{ /if }}
 
-            </div>
-            <!-- /.col-lg-3 -->
+                </div>
+                <!-- /.col-lg-3 -->
 
-            <div class="col-lg-9">
+            {{ /if }}
+
+            <div class="{{ #if isLoggedIn }}col-xl-9{{ else }}col-xl-12 mt-2{{ /if }}">
 
                 <div class="row">
 
                     {{ #each getProjects }}
-                        <div class="col-lg-6 mb-4 animated fadeInRight">
+                        <div class="{{ #if isLoggedIn }}col-xl-6{{ else }}col-xl-4{{ /if }} mb-4 animated fadeInRight">
                             <div class="card h-100">
                                 <a href="{{ pathFor 'project-see' id=this._id }}">
                                     {{ #with getProjectCover this.coverId }}
@@ -98,6 +103,12 @@
             width: 100%;
             height: 16vw;
             object-fit: cover;
+        }
+
+        .legendLine {
+            margin-top: 0px;
+            border: 1px solid #E6E6E6;
+            width: 100%;
         }
 
     </style>
