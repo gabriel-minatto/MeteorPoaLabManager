@@ -10,10 +10,14 @@ Meteor.publish('publishedProjects', function () {
 
     const filtro = {
         $or: [
-            { 'owner._id' : Meteor.userId() },
             { 'public' : true, 'active': true }
         ]
     };
+
+    if(Meteor.user()){
+
+        filtro['$or'].push({ 'owner._id' : Meteor.userId() });
+    }
 
     return Projects.find(filtro);
 });

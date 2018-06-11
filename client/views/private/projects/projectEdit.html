@@ -28,12 +28,28 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-xl-8">
-                                {{> afQuickField name='title'}} {{> afQuickField name='description'}} {{> afQuickField name='public' type='boolean-checkbox'}}
+                                {{> afQuickField name='title'}}
+                                {{> afQuickField name='description'}}
+                                <div class="row">
+                                    <div class="col-xl-3">
+                                        {{> afQuickField name='public' type='boolean-checkbox'}}
+                                    </div>
+                                    {{ #if checkUserIsInRole 'admin' }}
+                                        <div class="col-xl-2 pl-0">
+                                            {{> afQuickField name='active' value=true type='boolean-checkbox'}}
+                                        </div>
+                                    {{ /if }}
+                                </div>
                             </div>
                             <div class="col-xl-4">
-                                {{> afQuickField name="coverId" type="cfs-file" collection="projectCovers" placeholder="Clique para selecionar" }} {{> afQuickField
-                                name="manualId" type="cfs-file" collection="projectManuals" placeholder="Clique para selecionar"
-                                }}
+                                {{> afQuickField name="coverId"
+                                    type="cfs-file"
+                                    collection="projectCovers"
+                                    placeholder="Clique para selecionar" }}
+                                {{> afQuickField name="manualId"
+                                    type="cfs-file"
+                                    collection="projectManuals"
+                                    placeholder="Clique para selecionar" }}
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Salvar</button>

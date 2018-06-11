@@ -11,16 +11,16 @@
                 </ul>
                 <div class="carousel-inner">
                     {{ #each getProjects }}
-                        <a href="{{ pathFor 'project-see' id=this._id }}">
-                            <div class="carousel-item {{ #unless @index != 0 }}active{{ /unless }}">
+                        <div class="carousel-item {{ #unless @index != 0 }}active{{ /unless }}">
+                            <a href="{{ pathFor 'project-see' id=this._id }}">
                                 {{ #with getProjectCover this.coverId }}
                                     <img class="carousel-img" src="{{ this.url store='projectCoversStore' }}">
                                 {{ /with }}
                                 <div class="carousel-caption">
                                     <h3>{{ this.title }}</h3>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     {{ /each }}
                 </div>
                 <!-- Left and right controls -->

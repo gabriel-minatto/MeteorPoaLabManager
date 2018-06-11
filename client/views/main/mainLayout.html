@@ -16,14 +16,13 @@
 
     <div id="page-content" class="pt-4 pb-3">
         {{> Template.dynamic template=content }}
+        <div id="page-footer">
+            {{ #if isLoggedIn }}
+                {{> pageFooter }}
+            {{ else }}
+                {{> publicFooter }}
+            {{ /if }}
+        </div>
     </div>
-
-    <!-- <div id="page-footer">
-        {{ #if isLoggedIn }}
-            {{> pageFooter }}
-        {{ else }}
-            {{> publicFooter }}
-        {{ /if }}
-    </div> -->
 
 </template>

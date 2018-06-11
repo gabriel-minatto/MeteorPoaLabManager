@@ -19,8 +19,8 @@ html, body, #__blaze-root, #page-content {
   height: 100%;
 }
 
-/*#page-footer {
+#page-footer {
   bottom: 0;
   position: relative;
   width: 100%;
-}*/
+}
