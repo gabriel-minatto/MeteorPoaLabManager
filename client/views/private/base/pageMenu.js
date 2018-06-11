@@ -3,10 +3,9 @@ Template.pageMenu.helpers({
     getNavBarLinks() {
 
         return [
-            ['home', 'Home'],
-            ['machines', 'Máquinas'],
             ['projects', 'Projetos'],
             ['steps-library', 'Etapas'],
+            ['machines', 'Máquinas'],
             ['reports', 'Reporte/Bug'],
             ['logout', 'Sair']
         ];
