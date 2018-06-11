@@ -1,6 +1,6 @@
-Template.projectSeeInfo.onCreated(function(){
+Template.projectSeeInfo.onCreated(function () {
 
-    this.project = new ReactiveVar(false);
+    this.project = new ReactiveDict(false);
     this.showInfo = new ReactiveVar(false);
 
     subsGlobal.subscribe('allProjectCovers');
@@ -14,8 +14,21 @@ Template.projectSeeInfo.onCreated(function(){
 
         const project = Template.currentData().project;
 
-        self.project.set(project);
+        if (!project) return;
 
+        const pc = ProjectCovers.findOne({ _id: project.coverId });
+        self.project.set('cover',
+            pc  ? pc.url({ store: 'projectCoversStore' })
+                : false
+        );
+
+        const pm = ProjectManuals.findOne({ _id: project.manualId });
+        self.project.set('manual',
+            pm  ? pm.url({ store: 'projectManualsStore' })
+                : false
+        );
+
+        self.project.set('project', project);
     });
 });
 
@@ -23,21 +36,17 @@ Template.projectSeeInfo.helpers({
 
     getProject() {
 
-        return Template.instance().project.get();
+        return Template.instance().project.get('project');
     },
 
     getProjectCover() {
 
-        const project = Template.instance().project.get();
-
-        return ProjectCovers.findOne({ _id: project.coverId });
+        return Template.instance().project.get('cover');
     },
 
     getProjectDocs() {
 
-        const project = Template.instance().project.get();
-
-        return ProjectManuals.findOne({ _id: project.manualId });
+        return Template.instance().project.get('manual');
     },
 
     showInfo() {
@@ -46,14 +55,14 @@ Template.projectSeeInfo.helpers({
     },
 
     formatDescription(desc) {
-        return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`
+        return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '')}`
     }
 
 });
 
 Template.projectSeeInfo.events({
 
-    'click .showInfoBtn': function(e, t) {
+    'click .showInfoBtn': function (e, t) {
 
         t.showInfo.set(!t.showInfo.get());
     }

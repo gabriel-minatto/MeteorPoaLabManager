@@ -2,7 +2,7 @@ Template.stepBox.onCreated(function(){
 
     subsGlobal.subscribe('allStepImages');
 
-    this.step = new ReactiveVar({});
+    this.step = new ReactiveDict(false);
 
     const self = this;
 
@@ -12,8 +12,22 @@ Template.stepBox.onCreated(function(){
 
         const step = Template.currentData().step;
 
-        self.step.set(step);
-    })
+        if(!step) return;
+
+        const stepCover = (() => {
+
+            if(!step.imagesIds || !step.imagesIds.length) return ['/images/poalab.png'];
+
+            const img = StepImages.findOne({ _id: step.imagesIds[0] });
+
+            if(!img) return ['/images/poalab.png'];
+
+            return img.url({ store: 'stepImagesStore' });
+        })();
+
+        self.step.set('step', step);
+        self.step.set('cover', stepCover);
+    });
 
 });
 
@@ -21,25 +35,11 @@ Template.stepBox.helpers({
 
     getStepCover() {
 
-        if (!subsGlobal.ready()) return;
-
-        const defaultImg = {
-            url:(arg) => '/images/poalab.png'
-        }
-
-        const step = Template.instance().step.get();
-
-        if (!step || !step.imagesIds) return defaultImg;
-
-        var img = StepImages.findOne({ _id: step.imagesIds[0] });
-
-        if(!img) return defaultImg;
-
-        return img;
+        return Template.instance().step.get('cover');
     },
 
     getStep() {
 
-        return Template.instance().step.get();
+        return Template.instance().step.get('step');
     }
 });

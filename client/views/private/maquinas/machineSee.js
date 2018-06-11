@@ -23,7 +23,6 @@ Template.machineSee.onCreated(function() {
         }
 
         self.machine.set(machine);
-
     });
 
 });

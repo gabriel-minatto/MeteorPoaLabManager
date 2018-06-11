@@ -11,14 +11,14 @@
                                     <div class="col-xl-12">
                                         <div id="stepCarousel" class="carousel slide" data-ride="carousel">
                                             <ul class="carousel-indicators">
-                                                {{ #each getStepCover }}
+                                                {{ #each getStepImages }}
                                                     <li data-target="#stepCarousel" data-slide-to="{{ @index }}" class="{{ #unless @index != 0 }}active{{ /unless }}"></li>
                                                 {{ /each }}
                                             </ul>
                                             <div class="carousel-inner">
-                                                {{ #each getStepCover }}
+                                                {{ #each getStepImages }}
                                                     <div class="carousel-item {{ #unless @index != 0 }}active{{ /unless }}">
-                                                        <img class="card-img-step-see" src="{{ this.url store='stepImagesStore' }}">
+                                                        <img class="card-img-step-see" src="{{ this }}">
                                                     </div>
                                                 {{ /each }}
                                             </div>
@@ -32,10 +32,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                {{ #if stepHasDocs }}
+                                {{ #if getStepDoc }}
                                     <div class="row">
                                         <div class="col-xl-12 text-center mt-4">
-                                            <a class="btn btn-info" href="{{ getStepDocs.url store='stepManualsStore' }}" download="file">
+                                            <a class="btn btn-info" href="{{ getStepDoc }}" download="file">
                                                 Download Doc's
                                             </a>
                                         </div>
@@ -49,12 +49,12 @@
                                     <div class="col-xl-12 mt-4">
                                         <p>{{ getStep.instructions }}</p>
                                     </div>
-                                    {{ #if stepHasEmbed }}
+                                    {{ #if getStepEmbeds }}
                                         <div class="col-xl-12">
                                             <legend>Conteúdo Externo</legend>
                                             <div class="legendLine"></div>
                                         </div>
-                                        {{ #each getStepEmbed }}
+                                        {{ #each getStepEmbeds }}
                                             <div class="col-xl-12 mt-4">
                                                 <div class="card-embed-step-see">
                                                     {{{ this }}}

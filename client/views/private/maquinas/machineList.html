@@ -35,9 +35,7 @@
                     <div class="col-lg-4 col-md-6 mb-4 animated fadeInRight">
                         <div class="card h-100">
                             <a href="{{ pathFor 'machine-see' id=this._id }}">
-                                {{ #with getMachineImage this.imageId }}
-                                    <img class="card-img-top" src="{{ this.url store='machineImagesStore' }}" alt="">
-                                {{ /with }}
+                                <img class="card-img-top" src="{{ getMachineImage this.imageId }}" alt="">
                             </a>
                             <div class="card-body">
                                 <h4 class="card-title">

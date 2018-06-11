@@ -17,12 +17,16 @@ Template.projectSteps.onCreated(function() {
 
         const project = Projects.findOne({ _id: id });
 
+        if(!project) return;
+
         const nodeStructure = tranforma(project.steps).em().diagrama();
+
+        if(!nodeStructure || !Object.keys(nodeStructure).length) return;
 
         self.nodeStructure.set(nodeStructure);
         self.threeNodes.set(project.steps);
     });
-})
+});
 
 Template.projectSteps.onRendered(function() {
 
@@ -191,9 +195,9 @@ function tranforma(threeNodes) {
 
                     return mapNode;
                 }
-            }
+            };
         }
-    }
+    };
 }
 
 function encontraNodo(threeId) {
@@ -217,7 +221,7 @@ function encontraNodo(threeId) {
 
             }, false);
         }
-    }
+    };
 }
 
 function procura(fatherId) {
@@ -265,16 +269,17 @@ function procura(fatherId) {
 
                     return newThree;
                 }
-            }
+            };
         }
-    }
+    };
 }
 
 function remove(threeId) {
 
     return {
         from: (fatherId) => {
-            return { in: (threeNodes) => {
+            return {
+                in: (threeNodes) => {
                     let stop = false;
                     return threeNodes.map((val, ind, arr) => {
 
@@ -305,9 +310,9 @@ function remove(threeId) {
                         return val;
                     });
                 }
-            }
+            };
         }
 
-    }
+    };
 
 }

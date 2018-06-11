@@ -1,13 +1,36 @@
 Template.machineList.onCreated(function () {
+
     this.filtro = new ReactiveVar(false);
+    this.machines = new ReactiveVar(false);
+    this.machinesImages = new ReactiveDict(false);
 
     subsGlobal.subscribe('activeMachines');
     subsGlobal.subscribe('allMachineImages');
+
+    const self = this;
 
     this.autorun(function () {
 
         if (!subsGlobal.ready()) return;
 
+        const filtro = self.filtro.get();
+
+        const machines = Machines.find(filtro || {}).fetch();
+
+        if(!machines || !machines.length) return;
+
+        machines.forEach(m => {
+
+            if(!m.imageId) return;
+
+            const machineImg = MachineImages.findOne({ _id: m.imageId });
+            self.machinesImages.set(m.imageId,
+                machineImg ? machineImg.url({ store: 'machineImagesStore' })
+                           : false
+            );
+        });
+
+        self.machines.set(machines);
     });
 });
 
@@ -15,17 +38,17 @@ Template.machineList.helpers({
 
     getMachines() {
 
-        let filtro = Template.instance().filtro.get();
-
-        return Machines.find(filtro || {}).fetch();
+        return Template.instance().machines.get();
     },
 
     getMachineImage(id) {
-        return MachineImages.findOne({ _id: id });
+
+        return Template.instance().machinesImages.get(id);
     },
 
     formatDescription(desc) {
-        return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`
+
+        return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`;
     }
 });
 

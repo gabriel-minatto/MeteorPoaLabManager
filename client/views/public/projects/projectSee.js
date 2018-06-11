@@ -15,8 +15,9 @@ Template.projectSee.onCreated(function() {
         if (!subsGlobal.ready()) return;
 
         const id = FlowRouter.getParam('id');
-
         const project = Projects.findOne({ _id: id });
+
+        if(!id || !project) return;
 
         const nodeStructure = tranforma(project.steps).em().diagrama();
 
@@ -82,6 +83,7 @@ Template.projectSee.helpers({
 
     projectHasSteps() {
 
+        console.log(Template.instance().nodeStructure.get());
         return Object.keys(Template.instance().nodeStructure.get()).length;
     },
 

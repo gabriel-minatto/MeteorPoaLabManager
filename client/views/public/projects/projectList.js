@@ -1,6 +1,8 @@
 Template.projectList.onCreated(function() {
 
     this.filtro = new ReactiveVar(false);
+    this.projects = new ReactiveVar(false);
+    this.projectCovers = new ReactiveDict(false);
 
     subsGlobal.subscribe('publishedProjects');
     subsGlobal.subscribe('allProjectCovers');
@@ -11,27 +13,43 @@ Template.projectList.onCreated(function() {
 
         if (!subsGlobal.ready()) return;
 
-    });
+        const filtro = self.filtro.get();
+        const projects = Projects.find(
+            (filtro || {}), //filtro se == true ou obj vazio
+            { sort: { updatedAt : -1 } }
+        ).fetch();
+
+        if(!projects || !projects.length) return;
+
+        projects.forEach(p => {
+
+            if(!p.coverId) return;
+
+            const pc = ProjectCovers.findOne({ _id: p.coverId });
+            self.projectCovers.set(p.coverId,
+                pc  ? pc.url({ store: 'projectCoversStore' })
+                    : false
+            );
+        });
+
+        self.projects.set(projects);
+});
 });
 
 Template.projectList.helpers({
 
     getProjects() {
 
-        let filtro = Template.instance().filtro.get();
-        if (!filtro)
-            return Projects.find({}, { sort: { updatedAt : -1 } });
-
-        return Projects.find(filtro, { sort: { updatedAt : -1 } });
+        return Template.instance().projects.get();
     },
 
     getProjectCover(id) {
 
-        return ProjectCovers.findOne({ _id: id });
+        return Template.instance().projectCovers.get(id);
     },
 
     formatDescription(desc) {
-        return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`
+        return `${desc.slice(0, 100)}${(desc.length > 100 ? '...Mais' : '' )}`;
     },
 
     canEditPost() {

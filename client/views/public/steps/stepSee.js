@@ -3,7 +3,7 @@ Template.stepsSee.onCreated(function () {
     subsGlobal.subscribe('allStepImages');
     subsGlobal.subscribe('allStepManuals');
 
-    this.step = new ReactiveVar({});
+    this.step = new ReactiveDict(false);
 
     const self = this;
 
@@ -13,73 +13,65 @@ Template.stepsSee.onCreated(function () {
 
         const step = Template.currentData().step;
 
-        self.step.set(step);
-    })
+        if(!step) return;
+
+        const stepImgs = (() => {
+
+            if(!step.imagesIds || !step.imagesIds.length) return ['/images/poalab.png'];
+
+            const imgs = StepImages.find({ _id: { $in: step.imagesIds } }).fetch();
+
+            if(!imgs || !imgs.length) return ['/images/poalab.png'];
+
+            return imgs.map(img => img.url({ store: 'stepImagesStore' }));
+        })();
+
+        const stepDoc = (() => {
+
+            if(!step.manualId) return false;
+
+            const manual = StepManuals.findOne({ _id: step.manualId });
+
+            if(!manual) return false;
+
+            return manual.url({ store: 'stepManualsStore' });
+        })();
+
+        const stepEmbeds = (() => {
+
+            if(!step.embedContent || !step.embedContent.length) return false;
+            return step.embedContent;
+        })();
+
+
+        self.step.set('step', step);
+        self.step.set('images', stepImgs);
+        self.step.set('embeds', stepEmbeds);
+        self.step.set('doc', stepDoc);
+    });
 
 });
 
 Template.stepsSee.helpers({
 
-    getStepCover() {
+    getStepImages() {
 
-        if (!subsGlobal.ready()) return;
-
-        const defaultImg = [{
-            url:(arg) => '/images/poalab.png'
-        }];
-
-        const step = Template.instance().step.get();
-
-        if (!step || !step.imagesIds) return defaultImg;
-
-        const img = StepImages.find({ _id: { $in: step.imagesIds } }).fetch();
-
-        if(!img) return defaultImg;
-
-        return img;
+        return Template.instance().step.get('images');
     },
 
-    getStepDocs() {
+    getStepDoc() {
 
-        const step = Template.instance().step.get();
-
-        const defaultManual = {
-            url:(args) => console.log(args)
-        };
-
-        if (!step) return defaultManual;
-
-        const manual = StepManuals.findOne({
-            _id: step.manualId
-        });
-
-        if(!manual) return defaultManual;
-
-        return manual;
+        return Template.instance().step.get('doc');
     },
 
-    getStepEmbed() {
+    getStepEmbeds() {
 
-        return Template.instance().step.get().embedContent;
-    },
-
-    stepHasDocs() {
-
-        const manualId = Template.instance().step.get().manualId;
-
-        return (manualId && manualId != 'dummyId') ? true : false;
-    },
-
-    stepHasEmbed() {
-
-        const embed = Template.instance().step.get().embedContent;
-
-        return embed && embed.length;
+        return Template.instance().step.get('embeds');
     },
 
     getStep() {
 
-        return Template.instance().step.get();
+        return Template.instance().step.get('step');
     },
 
 

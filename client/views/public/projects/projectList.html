@@ -40,7 +40,7 @@
                             <div class="card h-100">
                                 <a href="{{ pathFor 'project-see' id=this._id }}">
                                     {{ #with getProjectCover this.coverId }}
-                                        <img class="card-img-top" src="{{ this.url store='projectCoversStore' }}" alt="">
+                                        <img class="card-img-top" src="{{ this }}" alt="">
                                     {{ /with }}
                                 </a>
                                 <div class="card-body">

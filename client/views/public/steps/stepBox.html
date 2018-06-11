@@ -8,20 +8,20 @@
                                 <i class="fa fa-window-close deleteStepBtn" data-threeid="{{ this.threeId }}" data-stepid="{{ this.fatherId }}" aria-hidden="true"></i>
                             {{ /unless }}
                             <img class="card-img-top editStepAnchor"
-                                src="{{ getStepCover.url store='stepImagesStore' }}"
+                                src="{{ getStepCover }}"
                                 data-stepid="{{ getStep._id }}"
                                 data-threeid="{{ this.threeId }}" />
                         {{ else }}
-                            <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" />
+                            <img class="card-img-top" src="{{ getStepCover }}" />
                         {{ /if }}
                     {{ /with }}
                 {{ else }}
                     {{ #if hideBack }}
-                        <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" data-stepid="{{ getStep._id }}" data-threeid="{{ #if threeId }}{{threeId}}{{ /if }}" />
+                        <img class="card-img-top" src="{{ getStepCover }}" data-stepid="{{ getStep._id }}" data-threeid="{{ #if threeId }}{{threeId}}{{ /if }}" />
                     {{ else }}
                         <i class="fa fa-window-close deleteStepBtn" aria-hidden="true" data-stepid="{{ getStep._id }}"></i>
                         <a href="{{ pathFor routeName id=getStep._id }}">
-                            <img class="card-img-top" src="{{ getStepCover.url store='stepImagesStore' }}" />
+                            <img class="card-img-top" src="{{ getStepCover }}" />
                         </a>
                     {{ /if }}
                 {{ /if }}

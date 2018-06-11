@@ -27,7 +27,7 @@ Template.stepsEdit.onCreated(function () {
 });
 
 Template.stepsEdit.helpers({
-    
+
     getStep() {
 
         return Template.instance().step.get();
