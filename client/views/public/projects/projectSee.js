@@ -25,7 +25,7 @@ Template.projectSee.onCreated(function() {
         self.threeNodes.set(project.steps);
         self.project.set(project);
     });
-})
+});
 
 Template.projectSee.onRendered(function () {
 
@@ -83,7 +83,6 @@ Template.projectSee.helpers({
 
     projectHasSteps() {
 
-        console.log(Template.instance().nodeStructure.get());
         return Object.keys(Template.instance().nodeStructure.get()).length;
     },
 
@@ -124,7 +123,7 @@ function tranforma(threeNodes) {
                                 hideBack: true,
                                 nodeControls: false
                             })
-                        }
+                        };
 
                         if (!nodo.children) return newNode;
 
@@ -136,9 +135,9 @@ function tranforma(threeNodes) {
 
                     return mapNode;
                 }
-            }
+            };
         }
-    }
+    };
 }
 
 function encontraNodo(threeId) {
@@ -162,5 +161,5 @@ function encontraNodo(threeId) {
 
             }, false);
         }
-    }
+    };
 }
