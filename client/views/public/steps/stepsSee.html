@@ -55,6 +55,11 @@
                                             <div class="legendLine"></div>
                                         </div>
                                         {{ #each getStepEmbeds }}
+                                            {{ #if @index != 0 }}
+                                                <div class="col-xl-12 mt-4">
+                                                    <div class="legendLine"></div>
+                                                </div>
+                                            {{ /if }}
                                             <div class="col-xl-12 mt-4">
                                                 <div class="card-embed-step-see">
                                                     {{{ this }}}

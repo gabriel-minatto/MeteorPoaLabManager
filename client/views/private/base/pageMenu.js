@@ -5,6 +5,7 @@ Template.pageMenu.helpers({
         return [
             ['projects', 'Projetos'],
             ['steps-library', 'Etapas'],
+            ['media-library', 'Mídias'],
             ['machines', 'Máquinas'],
             ['reports', 'Reporte/Bug'],
             ['logout', 'Sair']

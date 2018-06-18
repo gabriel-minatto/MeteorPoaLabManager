@@ -1,0 +1,53 @@
+<template name="mediaLibrary">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-xl-9">
+                                    <h2>Biblioteca de Mídias</h2>
+                                </div>
+                                {{ #unless hideBack }}
+                                    <div class="col-xl-2 pr-0">
+                                        <button class="btn btn-success float-right" id="newFileBtn">Salvar Arquivo</button>
+                                    </div>
+                                    <div class="col-xl-1">
+                                        <a href="{{ pathFor 'projects'}}">
+                                            <button class="btn btn-default float-right">Voltar</button>
+                                        </a>
+                                    </div>
+                                {{ /unless }}
+                                </div>
+                            </div>
+                        <div class="card-body" style="padding-top: 0px;">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="row">
+                                        {{ #each getUserSteps }}
+                                            <div class="col-xl-3 mt-4">
+                                                {{ #if ../hideBack }}
+                                                    {{> stepBox
+                                                        step=this
+                                                        routeName='steps-edit'
+                                                        hideBack=../hideBack
+                                                    }}
+                                                {{ else }}
+                                                    {{> stepBox
+                                                        step=this
+                                                        routeName='steps-edit'
+                                                    }}
+                                                {{ /if }}
+                                            </div>
+                                        {{ /each }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </template>

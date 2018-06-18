@@ -4,14 +4,14 @@
   "description": "Documentação de projeto DIY",
   "private": true,
   "scripts": {
-    "updates": "meteor update && meteor npm install && npm install",
+    "updates": "meteor npm install && npm install",
     "installs": "meteor npm install --save @babel/runtime",
     "removes": "meteor remove autopublish insecure",
     "start": "meteor --release 1.6.1.1 --settings settings.json",
     "build-start": "npm run updates && npm run installs && npm run start"
   },
   "dependencies": {
-    "@babel/runtime": "^7.0.0-beta.49",
+    "@babel/runtime": "^7.0.0-beta.51",
     "babel-polyfill": "^6.26.0",
     "bcrypt": "^2.0.1",
     "jshint": "^2.9.5",
