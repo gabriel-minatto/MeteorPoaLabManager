@@ -25,20 +25,9 @@
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="row">
-                                        {{ #each getUserSteps }}
+                                        {{ #each getMediaFiles }}
                                             <div class="col-xl-3 mt-4">
-                                                {{ #if ../hideBack }}
-                                                    {{> stepBox
-                                                        step=this
-                                                        routeName='steps-edit'
-                                                        hideBack=../hideBack
-                                                    }}
-                                                {{ else }}
-                                                    {{> stepBox
-                                                        step=this
-                                                        routeName='steps-edit'
-                                                    }}
-                                                {{ /if }}
+                                                {{ this }}
                                             </div>
                                         {{ /each }}
                                     </div>

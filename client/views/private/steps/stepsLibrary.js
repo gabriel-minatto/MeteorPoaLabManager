@@ -9,7 +9,7 @@ Template.stepsLibrary.onCreated(function(){
 
         if (!subsGlobal.ready()) return;
 
-    })
+    });
 
 });
 
