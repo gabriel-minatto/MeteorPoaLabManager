@@ -1,21 +1,23 @@
 <template name="mediaNewModal">
     <div class="modal fade" id="mediaNewModal">
-            <div class="modal-dialog m-auto">
-                <div class="modal-content">
+        <div class="col-xl-6 m-auto">
+            <div class="modal-dialog">
+                    <div class="modal-content">
 
-                    <div class="modal-header">
-                        <h4 class="modal-title">Envio de arquivo</h4>
-                        <div class="modal-closeBtn" data-dismiss="modal">x</div>
+                        <div class="modal-header">
+                            <h4 class="modal-title">Envio de arquivo</h4>
+                            <div class="modal-closeBtn" data-dismiss="modal">x</div>
+                        </div>
+
+                        <div class="modal-body">
+                            {{> mediaNew }}
+                        </div>
+
+                        <div class="modal-footer d-none">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                        </div>
+
                     </div>
-
-                    <div class="modal-body">
-                        <h1>Aqui jás uma modal</h1>
-                    </div>
-
-                    <div class="modal-footer d-none">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-                    </div>
-
                 </div>
             </div>
         </div>

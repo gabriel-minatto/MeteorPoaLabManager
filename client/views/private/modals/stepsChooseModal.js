@@ -12,7 +12,7 @@ Template.stepsChooseModal.onDestroyed(function () {
 });
 
 Template.stepsChooseModal.events({
-   
+
     'click .modal-content .card-img-top': function(e, t) {
 
         e.preventDefault();
@@ -21,7 +21,7 @@ Template.stepsChooseModal.events({
         const step = Steps.findOne({ _id:stepId });
 
         const params = {
-            
+
             projectId: FlowRouter.getParam('id'),
             fatherId: Session.get('fatherId'),
             push: Session.get('push')

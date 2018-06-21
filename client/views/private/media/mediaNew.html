@@ -1,3 +1,10 @@
 <template name="mediaNew">
-    
+    {{#autoForm collection="Medias" id="insertMediaForm" type="insert"}}
+        {{> afQuickField name='title'}}
+        {{> afQuickField name="fileId"
+            type="cfs-file"
+            collection="mediaFiles"
+            placeholder="Clique para selecionar" }}
+        <button type="submit" class="btn btn-primary mt-2 mb-3 float-right">Salvar</button>
+    {{/autoForm}}
 </template>
