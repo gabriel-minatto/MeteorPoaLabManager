@@ -11,6 +11,9 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
                 doc.active = true;
             }
             this.result(doc);
+
+            insertMediaFiles(doc);
+
         },
 
         update(doc) {
@@ -99,3 +102,35 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
         Modal.hide();
     }
 });
+
+const insertMediaFiles = (doc) => {
+
+    const mediaFilesReference = { title: doc.title, manual: false };
+
+    const imageFiles = {
+        target: document.querySelector('input[data-schema-key="imagesIds"]')
+    };
+
+    if (imageFiles.target.files.length) {
+        FS.Utility.eachFile(imageFiles, function(file) {
+
+            MediaFiles.insert(file, function (err, fileObj) {
+
+                Meteor.call('insertStepImage', fileObj._id, doc.title);
+            });
+        });
+    }
+
+    const manualFile = document.querySelector('input[data-schema-key="manualId"]').files[0];
+    if (manualFile) {
+
+        const manualCFS = MediaFiles.insert(manualFile);
+        if (manualCFS) {
+
+            mediaFilesReference.manual = manualCFS._id;
+        }
+    }
+
+    Meteor.call('insertStepManual', mediaFilesReference);
+
+};

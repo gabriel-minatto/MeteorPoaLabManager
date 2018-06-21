@@ -11,31 +11,10 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
                 doc.active = true;
             }
 
-            const mediaFilesReference = { title: doc.title, cover: false, manual: false };
-
-            const coverFile = document.querySelector('input[data-schema-key="coverId"]').files[0];
-            if (coverFile) {
-
-                 const coverCFS = MediaFiles.insert(coverFile);
-                 if (coverCFS) {
-
-                     mediaFilesReference.cover = coverCFS._id;
-                 }
-            }
-
-            const manualFile = document.querySelector('input[data-schema-key="manualId"]').files[0];
-            if (manualFile) {
-
-                const manualCFS = MediaFiles.insert(manualFile);
-                if (manualCFS) {
-
-                    mediaFilesReference.manual = manualCFS._id;
-                }
-            }
-
-            Meteor.call('insertProjectMedia', mediaFilesReference);
-
             this.result(doc);
+
+            insertMediaFiles(doc);
+
         },
 
         update(doc) {
@@ -56,3 +35,31 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
         FlowRouter.go('projects');
     }
 });
+
+const insertMediaFiles = (doc) => {
+
+    const mediaFilesReference = { title: doc.title, cover: false, manual: false };
+
+    const coverFile = document.querySelector('input[data-schema-key="coverId"]').files[0];
+    if (coverFile.length) {
+
+            const coverCFS = MediaFiles.insert(coverFile);
+            if (coverCFS) {
+
+                mediaFilesReference.cover = coverCFS._id;
+            }
+    }
+
+    const manualFile = document.querySelector('input[data-schema-key="manualId"]').files[0];
+    if (manualFile) {
+
+        const manualCFS = MediaFiles.insert(manualFile);
+        if (manualCFS) {
+
+            mediaFilesReference.manual = manualCFS._id;
+        }
+    }
+
+    Meteor.call('insertProjectMedia', mediaFilesReference);
+
+};
