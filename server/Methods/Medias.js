@@ -26,5 +26,10 @@ Meteor.methods({
             });
         }
 
+    },
+
+    deleteMedia(id) {
+
+        Medias.remove({ _id: id });
     }
 });

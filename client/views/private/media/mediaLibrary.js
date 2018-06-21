@@ -25,6 +25,10 @@ Template.mediaLibrary.onCreated(function(){
 
             m.url = mediaFile.url({ store: 'mediaFilesStore' });
 
+            if (mediaFile.original && mediaFile.original.type && mediaFile.original.type.match(/image\/.*/g)) {
+                m.cover = true;
+            }
+
             return m;
 
         }).filter(m => m);
@@ -39,10 +43,14 @@ Template.mediaLibrary.helpers({
 
     getMediaFiles() {
 
-        if(Template.instance().medias.get().length)
-            return Template.instance().medias.get().map(a => JSON.stringify(a));
+        return Template.instance().medias.get();
+    },
 
-        return [];
+    getMediaCover() {
+
+        if(!this.cover) return "/images/file-default.png";
+
+        return this.url;
     }
 });
 
@@ -51,6 +59,24 @@ Template.mediaLibrary.events({
     'click #newFileBtn': function(e, t) {
 
         Modal.show('mediaNewModal');
+    },
+
+    'click .deleteMediaBtn': function(e, t) {
+
+        const fileId = e.target.dataset.fileid;
+        if(!fileId) return;
+
+        new Confirmation({
+            message: "Esta ação não pode ser desfeita.",
+            title: "Você tem certeza?",
+            cancelText: "Cancelar",
+            okText: "Confirmar",
+            success: false, // whether the button should be green or red
+            focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
+        }, (ok) => {
+            if(!ok) return;
+            Meteor.call('deleteMedia', fileId);
+        });
     }
 
 });
