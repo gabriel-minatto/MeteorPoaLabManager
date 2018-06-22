@@ -11,9 +11,18 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
                 doc.active = true;
             }
 
-            this.result(doc);
-
-            insertMediaFiles(doc);
+            new Confirmation({
+                title: "Salvar arquivos no repositório de mídia?",
+                cancelText: "Não",
+                okText: "Sim",
+                success: true, // whether the button should be green or red
+                focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
+            }, (ok) => {
+                if(ok) {
+                    insertMediaFiles(doc);
+                }
+                this.result(doc);
+            });
 
         },
 
@@ -41,7 +50,7 @@ const insertMediaFiles = (doc) => {
     const mediaFilesReference = { title: doc.title, cover: false, manual: false };
 
     const coverFile = document.querySelector('input[data-schema-key="coverId"]').files[0];
-    if (coverFile.length) {
+    if (coverFile) {
 
             const coverCFS = MediaFiles.insert(coverFile);
             if (coverCFS) {

@@ -6,9 +6,19 @@ AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
             doc.owner = Meteor.user();
             doc.createdAt = new Date();
             doc.updatedAt = new Date();
-            this.result(doc);
 
-            insertMediaFiles(doc);
+            new Confirmation({
+                title: "Salvar arquivos no repositório de mídia?",
+                cancelText: "Não",
+                okText: "Sim",
+                success: true, // whether the button should be green or red
+                focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
+            }, (ok) => {
+                if(ok) {
+                    insertMediaFiles(doc);
+                }
+                this.result(doc);
+            });
         },
 
         update(doc) {
@@ -35,7 +45,7 @@ const insertMediaFiles = (doc) => {
     const mediaFilesReference = { title: doc.title, image: false, manual: false };
 
     const imageFile = document.querySelector('input[data-schema-key="imageId"]').files[0];
-    if (imageFile.length) {
+    if (imageFile) {
 
             const imageCFS = MediaFiles.insert(imageFile);
             if (imageCFS) {

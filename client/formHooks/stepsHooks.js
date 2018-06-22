@@ -10,9 +10,19 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
             if (doc.active == undefined) {
                 doc.active = true;
             }
-            this.result(doc);
 
-            insertMediaFiles(doc);
+            new Confirmation({
+                title: "Salvar arquivos no repositório de mídia?",
+                cancelText: "Não",
+                okText: "Sim",
+                success: true, // whether the button should be green or red
+                focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
+            }, (ok) => {
+                if(ok) {
+                    insertMediaFiles(doc);
+                }
+                this.result(doc);
+            });
 
         },
 
