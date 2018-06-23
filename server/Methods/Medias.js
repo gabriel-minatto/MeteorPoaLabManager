@@ -6,24 +6,36 @@ Meteor.methods({
 
         if(files.cover) {
 
-            Medias.insert({
+            const coverCFS = MediaFiles.insert(new FS.File(files.cover));
 
-                title: `Capa de ${files.title}`,
-                fileId: files.cover,
-                createdAt: new Date(),
-                owner: Meteor.user()
-            });
+            if (coverCFS) {
+
+                Medias.insert({
+
+                    title: `Capa de ${files.title}`,
+                    fileId: coverCFS._id,
+                    createdAt: new Date(),
+                    owner: Meteor.user()
+                });
+            }
+
         }
 
         if(files.manual) {
 
-            Medias.insert({
+            const manualCFS = MediaFiles.insert(new FS.File(files.manual));
 
-                title: `Documento de ${files.title}`,
-                fileId: files.manual,
-                createdAt: new Date(),
-                owner: Meteor.user()
-            });
+            if(manualCFS){
+
+                Medias.insert({
+
+                    title: `Documento de ${files.title}`,
+                    fileId: manualCFS._id,
+                    createdAt: new Date(),
+                    owner: Meteor.user()
+                });
+            }
+
         }
 
     },
@@ -34,55 +46,79 @@ Meteor.methods({
 
         if(files.image) {
 
-            Medias.insert({
+            const imageCFS = MediaFiles.insert(new FS.File(files.image));
 
-                title: `Capa de ${files.title}`,
-                fileId: files.image,
-                createdAt: new Date(),
-                owner: Meteor.user()
-            });
+            if (imageCFS) {
+
+                Medias.insert({
+
+                    title: `Imagem de ${files.title}`,
+                    fileId: imageCFS._id,
+                    createdAt: new Date(),
+                    owner: Meteor.user()
+                });
+
+            }
         }
 
         if(files.manual) {
 
-            Medias.insert({
+            const manualCFS = MediaFiles.insert(new FS.File(files.manual));
 
-                title: `Documento de ${files.title}`,
-                fileId: files.manual,
-                createdAt: new Date(),
-                owner: Meteor.user()
-            });
+            if(manualCFS){
+
+                Medias.insert({
+
+                    title: `Documento de ${files.title}`,
+                    fileId: manualCFS._id,
+                    createdAt: new Date(),
+                    owner: Meteor.user()
+                });
+            }
+
         }
 
     },
 
-    insertStepImage(id, title) {
+    insertStepImage(file, key, title) {
 
-        if ( !id ) return;
+        if ( !file || !key || !title ) return;
 
-        Medias.insert({
+        const imageCFS = MediaFiles.insert(new FS.File(file));
 
-            title: `Imagem da etapa ${title}`,
-            fileId: id,
-            createdAt: new Date(),
-            owner: Meteor.user()
-        });
+        if (imageCFS) {
+
+            return Medias.insert({
+
+                title: `Imagem #${key} de ${title}`,
+                fileId: imageCFS._id,
+                createdAt: new Date(),
+                owner: Meteor.user()
+            });
+
+        }
 
     },
 
-    insertStepManual(files) {
+    insertStepMedia(files) {
 
         if ( !files || !files.manual ) return;
 
         if(files.manual) {
 
-            Medias.insert({
+            const manualCFS = MediaFiles.insert(new FS.File(files.manual));
 
-                title: `Documento da etapa ${files.title}`,
-                fileId: files.manual,
-                createdAt: new Date(),
-                owner: Meteor.user()
-            });
+            if(manualCFS){
+
+                Medias.insert({
+
+                    title: `Documento de ${files.title}`,
+                    fileId: manualCFS._id,
+                    createdAt: new Date(),
+                    owner: Meteor.user()
+                });
+            }
+
         }
 
     },

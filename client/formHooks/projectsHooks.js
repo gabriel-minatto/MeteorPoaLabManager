@@ -18,10 +18,10 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
                 success: true, // whether the button should be green or red
                 focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
             }, (ok) => {
-                if(ok) {
-                    insertMediaFiles(doc);
-                }
-                this.result(doc);
+
+                if(!ok) this.result(doc);
+
+                insertMediaFiles(doc, (doc) => self.result(doc));
             });
 
         },
@@ -45,28 +45,23 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
     }
 });
 
-const insertMediaFiles = (doc) => {
+const insertMediaFiles = async (doc, cb) => {
 
     const mediaFilesReference = { title: doc.title, cover: false, manual: false };
 
     const coverFile = document.querySelector('input[data-schema-key="coverId"]').files[0];
+    const manualFile = document.querySelector('input[data-schema-key="manualId"]').files[0];
+
+    cb(doc);
+
     if (coverFile) {
 
-            const coverCFS = MediaFiles.insert(coverFile);
-            if (coverCFS) {
-
-                mediaFilesReference.cover = coverCFS._id;
-            }
+        mediaFilesReference.cover = await Blaze._globalHelpers.tranformToBase64(coverFile);
     }
 
-    const manualFile = document.querySelector('input[data-schema-key="manualId"]').files[0];
     if (manualFile) {
 
-        const manualCFS = MediaFiles.insert(manualFile);
-        if (manualCFS) {
-
-            mediaFilesReference.manual = manualCFS._id;
-        }
+        mediaFilesReference.manual = await Blaze._globalHelpers.tranformToBase64(manualFile);
     }
 
     Meteor.call('insertProjectMedia', mediaFilesReference);

@@ -7,6 +7,8 @@ AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
             doc.createdAt = new Date();
             doc.updatedAt = new Date();
 
+            const self = this;
+
             new Confirmation({
                 title: "Salvar arquivos no repositório de mídia?",
                 cancelText: "Não",
@@ -14,10 +16,10 @@ AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
                 success: true, // whether the button should be green or red
                 focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
             }, (ok) => {
-                if(ok) {
-                    insertMediaFiles(doc);
-                }
-                this.result(doc);
+
+                if(!ok) this.result(doc);
+
+                insertMediaFiles(doc, (doc) => self.result(doc));
             });
         },
 
@@ -40,28 +42,23 @@ AutoForm.addHooks(['insertMachineForm', 'updateMachineForm'], {
     }
 });
 
-const insertMediaFiles = (doc) => {
+const insertMediaFiles = async (doc, cb) => {
 
     const mediaFilesReference = { title: doc.title, image: false, manual: false };
 
     const imageFile = document.querySelector('input[data-schema-key="imageId"]').files[0];
+    const manualFile = document.querySelector('input[data-schema-key="manualId"]').files[0];
+
+    cb(doc);
+
     if (imageFile) {
 
-            const imageCFS = MediaFiles.insert(imageFile);
-            if (imageCFS) {
-
-                mediaFilesReference.image = imageCFS._id;
-            }
+        mediaFilesReference.image = await Blaze._globalHelpers.tranformToBase64(imageFile);
     }
 
-    const manualFile = document.querySelector('input[data-schema-key="manualId"]').files[0];
     if (manualFile) {
 
-        const manualCFS = MediaFiles.insert(manualFile);
-        if (manualCFS) {
-
-            mediaFilesReference.manual = manualCFS._id;
-        }
+        mediaFilesReference.manual = await Blaze._globalHelpers.tranformToBase64(manualFile);
     }
 
     Meteor.call('insertMachineMedia', mediaFilesReference);
