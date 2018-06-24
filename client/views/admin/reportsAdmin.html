@@ -1,0 +1,54 @@
+<template name="reportsAdmin">
+
+    <div class="col-xl-12">
+
+        <div class="row">
+
+            <div class="col-lg-3 pl-0">
+                <h3>Reports</h3>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <table class="table table-bordered table-striped table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th>Assunto</th>
+                        <th>Descrição</th>
+                        <th>Tipo</th>
+                        <th>Email</th>
+                        <th>Criado em</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ #each getReports }}
+                    <tr>
+                        <td>{{ this.subject }}</td>
+                        <td>{{ formatDescription this.description }}</td>
+                        <td>{{ this.type }}</td>
+                        <td>{{ getOwner }}</td>
+                        <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
+                        <td>
+                            {{ #if this.solved }}
+                                Resolvido
+                            {{ else }}
+                                Aberto
+                            {{ /if }}
+                        </td>
+                        <td>
+                            {{ #unless this.solved }}
+                                <button class="btn btn-success finishReport" data-reportid="{{ this._id }}">Finalizar</button>
+                            {{ /unless }}
+                            <button class="btn btn-info mt-2 detailsReport" data-reportid="{{ this._id }}">Detalhes</button>
+                        </td>
+                    </tr>
+                    {{ /each }}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</template>

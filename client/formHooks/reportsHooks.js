@@ -5,6 +5,7 @@ AutoForm.addHooks(['insertReportForm'], {
 
             doc.owner = Meteor.user();
             doc.createdAt = new Date();
+            doc.solved = false;
 
             this.result(doc);
         }
@@ -14,6 +15,6 @@ AutoForm.addHooks(['insertReportForm'], {
 
         this.resetForm();
         Toast.success('Reporte enviado com sucesso.');
-        FlowRouter.go('home');
+        FlowRouter.go('projects');
     }
 });
