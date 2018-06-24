@@ -10,16 +10,4 @@ Meteor.startup(function () {
         document.title = `PoaLab Doc's`;
     });
 
-    if(Meteor.user()) {
-
-        (async () => {
-            const isInRole = await Meteor.callPromise('checkUserIsInRoles', ['default-group']);
-
-            if (!isInRole) {
-                Meteor.call('assignUserToRole', ['default-group']);
-            }
-
-        })();
-    }
-
 });
