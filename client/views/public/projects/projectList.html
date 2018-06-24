@@ -2,6 +2,7 @@
 
     <div class="container">
 
+        {{ #unless hideBack }}
         <div class="row">
             <div class="col-lg-3">
                 <h1>Projetos</h1>
@@ -10,79 +11,114 @@
                 <div class="legendLine ml-3 mr-3"></div>
             {{ /unless }}
         </div>
+        {{ /unless }}
         <div class="row">
 
             {{ #if isLoggedIn }}
 
-                <div class="col-lg-3">
+                {{ #unless hideBack }}
+                    <div class="col-lg-3">
 
-                    <div class="list-group">
-                        <a href="#" data-filter="" class="list-group-item projectFilter">Todos</a>
-                        <a href="#" data-filter="userProjects" class="list-group-item projectFilter mb-4">Meus Projetos</a>
-                    </div>
-                    {{ #if checkUserIsInRole 'default-group' }}
-                        <div class="text-center mb-4">
-                            <a href="{{ pathFor 'project-new' }}" class="btn btn-success">Novo Projeto</a>
+                        <div class="list-group">
+                            <a href="#" data-filter="" class="list-group-item projectFilter">Todos</a>
+                            <a href="#" data-filter="userProjects" class="list-group-item projectFilter mb-4">Meus Projetos</a>
                         </div>
-                    {{ /if }}
+                        {{ #if checkUserIsInRole 'default-group' }}
+                            <div class="text-center mb-4">
+                                <a href="{{ pathFor 'project-new' }}" class="btn btn-success">Novo Projeto</a>
+                            </div>
+                        {{ /if }}
 
-                </div>
-                <!-- /.col-lg-3 -->
+                    </div>
+                    <!-- /.col-lg-3 -->
+                {{ /unless }}
 
             {{ /if }}
 
-            <div class="{{ #if isLoggedIn }}col-xl-9{{ else }}col-xl-12 mt-2{{ /if }}">
+            <div class="
+                {{ #if isLoggedIn }}
+                    {{#if hideBack }}
+                        col-xl-12
+                    {{ else }}
+                        col-xl-9
+                    {{ /if }}
+                {{ else }}
+                    col-xl-12 mt-2
+                {{ /if }}">
 
                 <div class="row">
 
                     {{ #each getProjects }}
-                        <div class="{{ #if isLoggedIn }}col-xl-6{{ else }}col-xl-4{{ /if }} mb-4 animated fadeInRight">
+                        <div class="mb-4 animated fadeInRight
+                            {{ #if isLoggedIn }}
+                                {{ #if ../hideBack }}
+                                    col-xl-3
+                                {{ else }}
+                                    col-xl-6
+                                {{ /if }}
+                            {{ else }}
+                                col-xl-4
+                            {{ /if }}">
                             <div class="card h-100">
-                                <a href="{{ pathFor 'project-see' id=this._id }}">
+                                {{ #if ../hideBack }}
                                     {{ #with getProjectCover this.coverId }}
-                                        <img class="card-img-top" src="{{ this }}" alt="">
+                                        <img class="card-img-top" data-projectid="{{ ../_id }}" src="{{ this }}" alt="">
                                     {{ /with }}
-                                </a>
+                                {{ else }}
+                                    <a href="{{ pathFor 'project-see' id=this._id }}">
+                                        {{ #with getProjectCover this.coverId }}
+                                            <img class="card-img-top" src="{{ this }}" alt="">
+                                        {{ /with }}
+                                    </a>
+                                {{ /if }}
                                 <div class="card-body">
                                     <h4 class="card-title">
-                                        <a href="{{ pathFor 'project-see' id=this._id }}">
+                                        {{ #if ../hideBack }}
                                             {{ this.title }}
-                                        </a>
-                                    </h4>
-                                    <p class="card-text">
-                                        {{ formatDescription this.description }}
-                                    </p>
-                                </div>
-                                <div class="card-footer pb-0">
-                                    <div class="row">
-                                        <div class="col-xl-6">
-                                            <span class=" align-middle">
-                                                <h5 style="margin-bottom:2px;">
-                                                    {{ #if this.public }}
-                                                    Publicado
-                                                    {{ else }}
-                                                    Privado
-                                                    {{ /if }}
-                                                </h5>
-                                            </span>
-                                            <small style="color:#a5a4a4;">
-                                                {{ formatDateToBrTextWithTime this.createdAt }}
-                                            </small>
-                                        </div>
-                                        {{ #if canEditPost }}
-                                            <div class="col-xl-3 pr-0">
-                                                <a href="{{ pathFor 'project-steps' id=this._id}}">
-                                                    <button class="btn btn-info float-right">Etapas</button>
-                                                </a>
-                                            </div>
-                                            <div class="col-xl-3">
-                                                <a href="{{ pathFor 'project-edit' id=this._id}}">
-                                                    <button class="btn btn-default float-right">Editar</button>
-                                                </a>
-                                            </div>
+                                        {{ else }}
+                                            <a href="{{ pathFor 'project-see' id=this._id }}">
+                                                {{ this.title }}
+                                            </a>
                                         {{ /if }}
-                                    </div>
+                                    </h4>
+                                    {{ #unless ../hideBack }}
+                                        <p class="card-text">
+                                            {{ formatDescription this.description }}
+                                        </p>
+                                    {{ /unless }}
                                 </div>
+                                {{ #unless ../hideBack }}
+                                    <div class="card-footer pb-0">
+                                        <div class="row">
+                                            <div class="col-xl-6">
+                                                <span class=" align-middle">
+                                                    <h5 style="margin-bottom:2px;">
+                                                        {{ #if this.public }}
+                                                        Publicado
+                                                        {{ else }}
+                                                        Privado
+                                                        {{ /if }}
+                                                    </h5>
+                                                </span>
+                                                <small style="color:#a5a4a4;">
+                                                    {{ formatDateToBrTextWithTime this.createdAt }}
+                                                </small>
+                                            </div>
+                                            {{ #if canEditPost }}
+                                                <div class="col-xl-3 pr-0">
+                                                    <a href="{{ pathFor 'project-steps' id=this._id}}">
+                                                        <button class="btn btn-info float-right">Etapas</button>
+                                                    </a>
+                                                </div>
+                                                <div class="col-xl-3">
+                                                    <a href="{{ pathFor 'project-edit' id=this._id}}">
+                                                        <button class="btn btn-default float-right">Editar</button>
+                                                    </a>
+                                                </div>
+                                            {{ /if }}
+                                        </div>
+                                    </div>
+                                {{ /unless }}
                             </div>
                         </div>
                     {{ /each }}

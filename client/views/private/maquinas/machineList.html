@@ -3,13 +3,16 @@
 <!-- Page Content -->
 <div class="container">
 
-    <div class="row">
-        <div class="col-lg-3">
-            <h1>Máquinas</h1>
+    {{ #unless hideBack }}
+        <div class="row">
+            <div class="col-lg-3">
+                <h1>Máquinas</h1>
+            </div>
         </div>
-    </div>
+    {{ /unless }}
     <div class="row">
 
+        {{ #unless hideBack }}
         <div class="col-lg-3">
 
             <div class="list-group">
@@ -26,49 +29,62 @@
 
         </div>
         <!-- /.col-lg-3 -->
+        {{ /unless }}
 
-        <div class="col-lg-9">
+        <div class="{{ #if hideBack }}col-xl-12{{ else }}col-lg-9{{ /if }}">
 
             <div class="row">
 
                 {{ #each getMachines }}
                     <div class="col-lg-4 col-md-6 mb-4 animated fadeInRight">
                         <div class="card h-100">
-                            <a href="{{ pathFor 'machine-see' id=this._id }}">
-                                <img class="card-img-top" src="{{ getMachineImage this.imageId }}" alt="">
-                            </a>
+                            {{ #if ../hideBack }}
+                                <img class="card-img-top" src="{{ getMachineImage this.imageId }}" data-machineid="{{ this._id }}" alt="">
+                            {{ else }}
+                                <a href="{{ pathFor 'machine-see' id=this._id }}">
+                                    <img class="card-img-top" src="{{ getMachineImage this.imageId }}" alt="">
+                                </a>
+                            {{ /if }}
                             <div class="card-body">
                                 <h4 class="card-title">
-                                    <a href="{{ pathFor 'machine-see' id=this._id }}">
+                                    {{ #if ../hideBack }}
                                         {{ this.title }}
-                                    </a>
-                                </h4>
-                                <p class="card-text">
-                                    {{ formatDescription this.description }}
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="row">
-                                    <div class="col-xl-7">
-                                        <span class=" align-middle">
-                                            <h5>
-                                                {{ #if this.available }}
-                                                Disponível
-                                                {{ else }}
-                                                Indisponível
-                                                {{ /if }}
-                                            </h5>
-                                        </span>
-                                    </div>
-                                    {{ #if checkUserIsInRole 'admin' }}
-                                        <div class="col-xl-5">
-                                            <a href="{{ pathFor 'edit-machine' id=this._id}}">
-                                                <button class="btn btn-default float-right">Editar</button>
-                                            </a>
-                                        </div>
+                                    {{ else }}
+                                        <a href="{{ pathFor 'machine-see' id=this._id }}">
+                                            {{ this.title }}
+                                        </a>
                                     {{ /if }}
-                                </div>
+                                </h4>
+                                {{ #unless ../hideBack }}
+                                    <p class="card-text">
+                                        {{ formatDescription this.description }}
+                                    </p>
+                                {{ /unless }}
                             </div>
+                            {{ #unless ../hideBack }}
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-xl-7">
+                                            <span class=" align-middle">
+                                                <h5>
+                                                    {{ #if this.available }}
+                                                    Disponível
+                                                    {{ else }}
+                                                    Indisponível
+                                                    {{ /if }}
+                                                </h5>
+                                            </span>
+                                        </div>
+                                        {{ #if checkUserIsInRole 'admin' }}
+                                            <div class="col-xl-5">
+                                                <a href="{{ pathFor 'edit-machine' id=this._id}}">
+                                                    <button class="btn btn-default float-right">Editar</button>
+                                                </a>
+                                            </div>
+                                        {{ /if }}
+                                    </div>
+                                </div>
+                            {{ /unless }}
                         </div>
                     </div>
                 {{ /each }}

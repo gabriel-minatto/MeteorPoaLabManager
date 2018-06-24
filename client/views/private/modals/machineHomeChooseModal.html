@@ -1,0 +1,61 @@
+<template name="machineHomeChooseModal">
+
+    <div class="modal fade" id="machineHomeChooseModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Escolher máquina</h4>
+                    <div class="modal-closeBtn" data-dismiss="modal">x</div>
+                </div>
+
+                <div class="modal-body">
+                    {{> machineList hideBack=true }}
+                </div>
+
+                <div class="modal-footer pr-4">
+                    <button type="button" id="addMachines" class="btn btn-default mr-4" data-dismiss="modal">Adicionar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <style>
+        .modal-dialog {
+
+            width: 70% !important;
+            max-width: unset !important;
+            margin-top: 2% !important;
+            margin-bottom: 2% !important;
+        }
+
+        .modal-dialog .modal-body>.container {
+
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .card-img-top:hover {
+
+            -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .card-img-top.selected {
+
+            -webkit-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.75);
+        }
+
+        .modal-closeBtn {
+
+            padding: 0px 10px;
+            background-color: #e8ebef;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    </style>
+
+</template>

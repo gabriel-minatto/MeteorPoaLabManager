@@ -1,0 +1,44 @@
+<template name="adminDashboard">
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-3">
+                <h1>Administração</h1>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-3">
+
+                <div class="list-group">
+                    <a href="#" data-filter="homeAdmin" class="list-group-item adminSwitcher">Home</a>
+                    <a href="#" data-filter="reservasAdmin" class="list-group-item adminSwitcher">Reservas</a>
+                    <a href="#" data-filter="projetosAdmin" class="list-group-item adminSwitcher">Projetos</a>
+                    <a href="#" data-filter="usuariosAdmin" class="list-group-item adminSwitcher">Usuários</a>
+                    <a href="#" data-filter="reportsAdmin" class="list-group-item adminSwitcher">Bug/Reports</a>
+                </div>
+
+            </div>
+            <!-- /.col-lg-3 -->
+
+            <div class="col-lg-9">
+
+                <div class="row">
+
+                    {{> Template.dynamic template=getContentTemplate }}
+
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.col-lg-9 -->
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+</template>

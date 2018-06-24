@@ -2,7 +2,7 @@ Template.pageMenu.helpers({
 
     getNavBarLinks() {
 
-        return [
+        const menus = [
             ['projects', 'Projetos'],
             ['steps-library', 'Etapas'],
             ['media-library', 'Mídias'],
@@ -10,6 +10,12 @@ Template.pageMenu.helpers({
             ['reports', 'Reporte/Bug'],
             ['logout', 'Sair']
         ];
+
+        if (Blaze._globalHelpers.checkUserIsInRole('admin')) {
+
+            menus.unshift(['administration', 'Administração']);
+        }
+        return menus;
     },
 
     getActiveLink(routeName) {
