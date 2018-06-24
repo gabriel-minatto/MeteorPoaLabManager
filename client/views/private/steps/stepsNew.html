@@ -45,10 +45,12 @@
                 <div class="col-xl-4">
                     {{> afQuickField
                         name="imagesIds"
+                        id="imagesInput"
                         type="cfs-files"
                         collection="stepImages"
                         placeholder="Clique para selecionar"
                     }}
+                    <input type="hidden" name="imagesIdsMedia" id="imagesIdsMedia" value="">
                     {{> afQuickField
                         name="manualId"
                         type="cfs-file"

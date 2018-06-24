@@ -11,6 +11,8 @@ AutoForm.addHooks(['insertProjectForm', 'updateProjectForm'], {
                 doc.active = true;
             }
 
+            const self = this;
+
             new Confirmation({
                 title: "Salvar arquivos no repositório de mídia?",
                 cancelText: "Não",

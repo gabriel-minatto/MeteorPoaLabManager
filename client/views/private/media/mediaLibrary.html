@@ -28,10 +28,16 @@
                                         {{ #each getMediaFiles }}
                                             <div class="col-xl-3 mt-4">
                                                 <div class="card mediaCard">
-                                                    <i class="fa fa-window-close deleteMediaBtn" data-fileid="{{ this._id }}" aria-hidden="true"></i>
-                                                    <a href="{{ this.url }}" download="file" title="Clique para baixar">
-                                                        <img class="card-img-top" src="{{ getMediaCover }}" />
-                                                    </a>
+                                                    {{ #if ../hideBack }}
+                                                        <img class="card-img-top mediaCard" src="{{ getMediaCover }}"
+                                                            data-filetitle="{{ this.title }}"
+                                                            data-fileid="{{ this.storageId }}" />
+                                                    {{ else }}
+                                                        <i class="fa fa-window-close deleteMediaBtn" data-fileid="{{ this._id }}" aria-hidden="true"></i>
+                                                        <a href="{{ this.url }}" download="file" title="Clique para baixar">
+                                                            <img class="card-img-top" src="{{ getMediaCover }}" />
+                                                        </a>
+                                                    {{ /if }}
                                                     <div class="card-header node-title">{{ this.title }}</div>
                                                 </div>
                                             </div>

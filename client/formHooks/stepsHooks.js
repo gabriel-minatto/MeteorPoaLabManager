@@ -21,9 +21,21 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
                 focus: "cancel" // which button to autofocus, "cancel" (default) or "ok", or "none"
             }, (ok) => {
 
-                if(!ok) this.result(doc);
+                (async () => {
 
-                insertMediaFiles(doc, (doc) => self.result(doc));
+                    if(!ok) {
+
+                        self.result(doc);
+                        return;
+                    }
+
+                    insertMediaFiles(doc, (d) => {
+
+                        self.result(d);
+                    });
+
+                })();
+
             });
 
         },
@@ -66,6 +78,8 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
     },
 
     onSuccess(formType, result) {
+
+        copyMediaInsertFiles(result);
 
         this.resetForm();
 
@@ -115,6 +129,18 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
     }
 });
 
+const copyMediaInsertFiles = async(stepId) => {
+
+    const imgsMedia = document.querySelector('#imagesIdsMedia').value;
+
+    if (!imgsMedia) return [];
+
+    const imgsMediaIds = JSON.parse(imgsMedia);
+
+    Meteor.call('insertStepMediaImages', imgsMediaIds, stepId);
+
+}
+
 const insertMediaFiles = async (doc, cb) => {
 
     const mediaFilesReference = { title: doc.title, manual: false };
@@ -123,10 +149,11 @@ const insertMediaFiles = async (doc, cb) => {
     const imageFiles = {
         target: document.querySelector('input[data-schema-key="imagesIds"]')
     };
+    const isUsingMedia = document.querySelector('#imagesIdsMedia').value;
 
     cb(doc);
 
-    if (imageFiles.target.files.length) {
+    if (imageFiles.target.files.length && !isUsingMedia) {
 
         FS.Utility.eachFile(imageFiles, async (file, key) => {
 

@@ -11,6 +11,8 @@ Template.mediaLibrary.onCreated(function(){
 
         if (!subsGlobal.ready()) return;
 
+        const tempData = Template.currentData();
+
         const medias = Medias.find({},  { sort: { createdAt : -1 } }).fetch();
 
         if(!medias || !medias.length) return;
@@ -21,9 +23,10 @@ Template.mediaLibrary.onCreated(function(){
 
             const mediaFile = MediaFiles.findOne({ _id: m.fileId });
 
-            if(!mediaFile) return false;
+            if(!mediaFile || (!mediaFile.isImage() && tempData.imageOnly)) return false;
 
             m.url = mediaFile.url({ store: 'mediaFilesStore' });
+            m.storageId = mediaFile._id;
 
             if (mediaFile.original && mediaFile.original.type && mediaFile.original.type.match(/image\/.*/g)) {
                 m.cover = true;
