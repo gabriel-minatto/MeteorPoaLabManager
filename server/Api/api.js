@@ -46,7 +46,6 @@ const api = () => {
             try {
 
                 const newFile = new FS.File(file);
-                newFile.name = () => title;
 
                 const fileCFS = MediaFiles.insert(newFile);
                 if (!fileCFS) {
