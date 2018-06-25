@@ -1,0 +1,114 @@
+<template name="reportSee">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 m-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-xl-12" style="display: inherit;">
+                                <h2>{{ getReport.subject }}&nbsp;</h2>
+                                <small>
+                                    {{ #if getReport.solved }} Resolvido&nbsp;
+                                        <div class="ball green-ball float-right" alt="Resolvido"></div>
+                                    {{ else }} Aberto&nbsp;
+                                        <div class="ball red-ball float-right" alt="Aberto"></div>
+                                    {{ /if }}
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <h3>Informações</h3>
+                                <div class="legendLine mb-2"></div>
+                            </div>
+                            <div class="col-xl-6">
+                                <div class="row">
+                                    <ul style="list-style:none; line-height: 35px;">
+                                        <li><b>Assunto:&nbsp;</b>{{ getReport.subject }}</li>
+                                        <li><b>Tipo:&nbsp;</b>{{ getReport.type }}</li>
+                                        <li><b>Contato:&nbsp;</b>
+                                            <ul>
+                                                <li><b>Email:&nbsp;</b>{{ getReport.contact.email }}</li>
+                                                <li><b>Fone:&nbsp;</b>{{ getReport.contact.phone }}</li>
+                                                <li><b>Outro:&nbsp;</b>{{ getReport.contact.other }}</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>Criador:&nbsp;</b>
+                                            <ul>
+                                                <li><b>Email:&nbsp;</b>{{ getOwnerEmail }}</li>
+                                                <li><b>Nome:&nbsp;</b>{{ getOwnerName }}</li>
+                                                <li><b>Permissões:&nbsp;</b>{{ getOwnerRoles }}</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>Criado em:&nbsp;</b> {{ formatDateToBrTextWithTime getReport.createdAt }}</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xl-6">
+                                <p><b>Descrição:</b></p>
+                                <p>{{ getReport.description }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <h3>Anexos</h3>
+                                <div class="legendLine mb-2"></div>
+                            </div>
+                            <div class="col-xl-12">
+                                <table class="table table-bordered table-striped table-hover table-responsive">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Tamanho</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{ #each getReportFiles }}
+                                            <tr>
+                                                <td>{{ this.name }}</td>
+                                                <td>{{ formatSize this.size }}KB</td>
+                                                <td>
+                                                    <a class="btn btn-info" href="{{ this.url }}" download="file">
+                                                        Download
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {{ /each }}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .ball {
+            width: 10px;
+            height: 10px;
+            border-radius: 10px;
+        }
+
+        .red-ball {
+            background-color: red;
+        }
+
+        .green-ball {
+            background-color: green;
+        }
+
+        .legendLine {
+
+            margin-top: 0px;
+            border: 1px solid #E6E6E6;
+            width: 100%;
+        }
+    </style>
+
+</template>

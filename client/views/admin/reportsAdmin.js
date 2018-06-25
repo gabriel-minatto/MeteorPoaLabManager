@@ -42,5 +42,10 @@ Template.reportsAdmin.events({
     'click .finishReport': function(e, t) {
 
         Meteor.call('finishReport', e.target.dataset.reportid);
+    },
+
+    'click .detailsReport': function(e, t) {
+
+        Modal.show('reportSeeModal', { reportId:e.target.dataset.reportid });
     }
 });
