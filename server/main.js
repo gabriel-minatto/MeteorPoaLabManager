@@ -16,5 +16,7 @@ Meteor.startup(() => {
       Roles.addUsersToRoles(userId, roles);
     }
 
+    Meteor.users.update({ _id:userId }, { $set: { apiToken: Random.id(32) } });
+
   });
 });

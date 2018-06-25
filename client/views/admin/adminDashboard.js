@@ -2,6 +2,8 @@ Template.adminDashboard.onCreated(function(){
 
     this.contentTemplate = new ReactiveVar(false);
 
+    subsGlobal.subscribe('allUsers');
+
     const self = this;
 
     this.autorun(function(){
