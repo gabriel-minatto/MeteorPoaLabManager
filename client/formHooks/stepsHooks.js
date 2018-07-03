@@ -49,7 +49,7 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
 
     after: {
 
-        insert(err, result) {
+        async insert(err, result) {
 
             const params = {
 
@@ -62,7 +62,11 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
                 return;
             }
 
-            Meteor.call('updatedStepInProject', params, (err, res) => {
+            //insert the repo files in a temp step record that will be copied
+            //to the project and deleted
+            const insertedIds = await copyMediaInsertFiles(result);
+
+            Meteor.call('updateStepInProject', params, (err, res) => {
 
                 if(!err) return;
 
@@ -72,14 +76,16 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
             Session.set('threeId', undefined);
             delete Session.keys.threeId;
 
-            Modal.hide();
+            const event = document.createEvent('HTMLEvents');
+            event.initEvent('click', true, false);
+            document.querySelector('.modal-closeBtn').dispatchEvent(event);
 
         }
     },
 
-    onSuccess(formType, result) {
+    async onSuccess(formType, result) {
 
-        copyMediaInsertFiles(result);
+        const insertedIds = await copyMediaInsertFiles(result);
 
         this.resetForm();
 
@@ -102,18 +108,19 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
             push: Session.get('push')
         };
 
-        if(params.fatherId == undefined
-            || params.projectId == undefined
-            || Session.get('threeId') != undefined) {
-
-            Toast.error('Parâmetros indefinidos.');
-            FlowRouter.go('steps-library');
+        if(params.fatherId == undefined || params.projectId == undefined) {
             return;
         }
 
-        this.insertDoc._id = result;
+        const doc = Object.assign({}, this.insertDoc);
 
-        Meteor.call('insertStepInProject', this.insertDoc, params, (err, res) => {
+        if(insertedIds && insertedIds.length) {
+
+            doc.imagesIds = insertedIds;
+        }
+        doc._id = result;
+
+        Meteor.call('insertStepInProject', doc, params, (err, res) => {
 
             if(!err) return;
 
@@ -125,7 +132,9 @@ AutoForm.addHooks(['insertStepForm', 'updateStepForm'], {
         delete Session.keys.fatherId;
         delete Session.keys.push;
 
-        Modal.hide();
+        const event = document.createEvent('HTMLEvents');
+        event.initEvent('click', true, false);
+        document.querySelector('.modal-closeBtn').dispatchEvent(event);
     }
 });
 
@@ -133,11 +142,13 @@ const copyMediaInsertFiles = async(stepId) => {
 
     const imgsMedia = document.querySelector('#imagesIdsMedia').value;
 
-    if (!imgsMedia) return [];
+    if (!imgsMedia) return false;
 
     const imgsMediaIds = JSON.parse(imgsMedia);
 
-    Meteor.call('insertStepMediaImages', imgsMediaIds, stepId);
+    const insertedIds = await Meteor.callPromise('insertStepMediaImages', imgsMediaIds, stepId);
+
+    return (insertedIds ? insertedIds : false);
 
 }
 

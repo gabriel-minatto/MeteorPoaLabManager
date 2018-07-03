@@ -63,7 +63,7 @@ Template.stepsNew.events({
                     $(imageInput).trigger('click', { clickable:true });
                     return;
                 }
-
+                Modal.allowMultiple = true;
                 Modal.show('mediaChooseModal');
 
             }

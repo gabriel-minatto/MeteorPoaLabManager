@@ -11,5 +11,8 @@ Template.autoForm.onRendered(function () {
         if (!checkboxes || !checkboxes.length) return;
 
         checkboxes.forEach(inpt => new Switchery(inpt));
+
+        //try to avoid duplicate entries during the page loading
+        document.querySelectorAll('.form-group .checkbox label span.switchery:nth-child(3)').forEach(item => item.remove());
     });
 });

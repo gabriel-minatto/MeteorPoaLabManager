@@ -9,7 +9,7 @@ Meteor.methods({
 
     insertStepMediaImages(fileIds, stepId) {
 
-        if (!fileIds) return;
+        if (!fileIds) return false;
 
         const insertedIds = fileIds.map(id => {
 
@@ -38,11 +38,11 @@ Meteor.methods({
 
         }).filter(id => id);
 
-        if (!insertedIds || !insertedIds.length) return;
+        if (!insertedIds || !insertedIds.length) return false;
 
         const step = Steps.findOne({ _id: stepId });
 
-        if(!step) return;
+        if(!step) return insertedIds;
 
         if(!step.imagesIds || !Array.isArray(step.imagesIds))
             step.imagesIds = [];
@@ -50,6 +50,8 @@ Meteor.methods({
         step.imagesIds = step.imagesIds.concat(insertedIds);
 
         Steps.update({ _id:stepId }, { $set: { imagesIds:step.imagesIds } });
+
+        return insertedIds;
 
     }
 

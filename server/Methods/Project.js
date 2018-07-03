@@ -11,11 +11,12 @@ Meteor.methods({
         });
     },
 
-    updatedStepInProject({ threeId, projectId, result }) {
+    updateStepInProject({ threeId, projectId, result }) {
 
         if(!threeId || !projectId || result == 1) {
+
             throw new Meteor.Error('Ocorreu um erro ao atualizar a etapa.');
-        };
+        }
 
         const doc = Steps.findOne({ _id: result });
 
@@ -27,6 +28,7 @@ Meteor.methods({
     insertStepInProject(doc, { projectId, fatherId, push }) {
 
         if(projectId == undefined || fatherId == undefined) {
+
             throw new Meteor.Error("Ocorreu um erro ao inserir a etapa.");
         }
 
