@@ -1,0 +1,60 @@
+<template name="reserveList">
+
+    <div class="container">
+            <div class="row">
+                <div class="col-xl-12 m-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-xl-8" style="display: inherit;">
+                                    <h2>Minhas Reservas</h2>
+                                </div>
+                                <div class="col-xl-3">
+                                    <button class="btn btn-success float-right" id="newReserveBtn">Nova Reserva</button>
+                                </div>
+                                <div class="col-xl-1 pl-0">
+                                    <a href="{{ pathFor '/maquinas '}}">
+                                        <button class="btn btn-default float-right">Voltar</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="col-xl-12">
+                                <div class="row">
+                                    <table class="table table-bordered table-striped table-hover table-responsive">
+                                        <thead>
+                                            <tr>
+                                                <th>Máquina</th>
+                                                <th>Criado em</th>
+                                                <th>Reservado Para</th>
+                                                <th>Status</th>
+                                                <th colspan='2'>&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {{ #each getReservesList }}
+                                                <tr>
+                                                    <td>{{ this.machine.title }}</td>
+                                                    <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
+                                                    <td>{{ formatDateToBrTextWithTime this.reservedDate }}</td>
+                                                    <td>{{ getReserveStatus }}</td>
+                                                    <td>
+                                                        <button class="btn btn-info editReserveBtn" data-reserveid="{{ this._id }}">Editar</button>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn btn-danger deleteReserveBtn" data-reserveid="{{ this._id }}">Apagar</button>
+                                                    </td>
+                                                </tr>
+                                            {{ /each }}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</template>

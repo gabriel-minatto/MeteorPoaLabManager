@@ -1,0 +1,7 @@
+<template name="reserveEdit">
+    {{#autoForm collection="Reserves" doc=getReserve id="updateReserveForm" type="update"}}
+        {{> afQuickField name='machineId' options=getActiveMachines firstOption='Selecione uma opção' }}
+        {{> afQuickField name='reservedDate' type="datetime-local" id='reservedDate' }}
+        <button type="submit" class="btn btn-primary mt-2 mb-3 float-right">Salvar</button>
+    {{/autoForm}}
+</template>
