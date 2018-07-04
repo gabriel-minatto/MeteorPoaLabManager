@@ -11,28 +11,30 @@
         </div>
 
         <div class="row">
-            <table class="table table-bordered table-striped table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Criador</th>
-                        <th>Criado em</th>
-                        <th><button class="btn btn-success" id="addproject">Adicionar</button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ #each getProjects }}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover table-responsive">
+                    <thead>
                         <tr>
-                            <td>{{ this.title }}</td>
-                            <td>{{ formatDescription this.description }}</td>
-                            <td>{{ getOwner }}</td>
-                            <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
-                            <td><button class="btn btn-danger removeProject" data-projectid="{{ this._id }}">Remover</button></td>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Criador</th>
+                            <th>Criado em</th>
+                            <th><button class="btn btn-success" id="addproject">Adicionar</button></th>
                         </tr>
-                    {{ /each }}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {{ #each getProjects }}
+                            <tr>
+                                <td>{{ this.title }}</td>
+                                <td>{{ formatDescription this.description }}</td>
+                                <td>{{ getOwner }}</td>
+                                <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
+                                <td><button class="btn btn-danger removeProject" data-projectid="{{ this._id }}">Remover</button></td>
+                            </tr>
+                        {{ /each }}
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <div class="row">
@@ -44,28 +46,30 @@
         </div>
 
         <div class="row">
-            <table class="table table-bordered table-striped table-hover table-responsive">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Descrição</th>
-                        <th>Criador</th>
-                        <th>Criado em</th>
-                        <th><button class="btn btn-success" id="addmachine">Adicionar</button></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{ #each getMachines }}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover table-responsive">
+                    <thead>
                         <tr>
-                            <td>{{ this.title }}</td>
-                            <td>{{ formatDescription this.description }}</td>
-                            <td>{{ getOwner }}</td>
-                            <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
-                            <td><button class="btn btn-danger removeMachine" data-machineid="{{ this._id }}">Remover</button></td>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th>Criador</th>
+                            <th>Criado em</th>
+                            <th><button class="btn btn-success" id="addmachine">Adicionar</button></th>
                         </tr>
-                    {{ /each }}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {{ #each getMachines }}
+                            <tr>
+                                <td>{{ this.title }}</td>
+                                <td>{{ formatDescription this.description }}</td>
+                                <td>{{ getOwner }}</td>
+                                <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
+                                <td><button class="btn btn-danger removeMachine" data-machineid="{{ this._id }}">Remover</button></td>
+                            </tr>
+                        {{ /each }}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </template>

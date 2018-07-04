@@ -22,33 +22,37 @@
                         <div class="card-body">
                             <div class="col-xl-12">
                                 <div class="row">
-                                    <table class="table table-bordered table-striped table-hover table-responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>Máquina</th>
-                                                <th>Criado em</th>
-                                                <th>Reservado Para</th>
-                                                <th>Status</th>
-                                                <th colspan='2'>&nbsp;</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {{ #each getReservesList }}
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover table-responsive">
+                                            <thead>
                                                 <tr>
-                                                    <td>{{ this.machine.title }}</td>
-                                                    <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
-                                                    <td>{{ formatDateToBrTextWithTime this.reservedDate }}</td>
-                                                    <td>{{ getReserveStatus }}</td>
-                                                    <td>
-                                                        <button class="btn btn-info editReserveBtn" data-reserveid="{{ this._id }}">Editar</button>
-                                                    </td>
-                                                    <td>
-                                                        <button class="btn btn-danger deleteReserveBtn" data-reserveid="{{ this._id }}">Apagar</button>
-                                                    </td>
+                                                    <th>Máquina</th>
+                                                    <th>Criado em</th>
+                                                    <th>Reservado Para</th>
+                                                    <th colspan='2'>&nbsp;</th>
                                                 </tr>
-                                            {{ /each }}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                {{ #each getReservesList }}
+                                                    <tr>
+                                                        <td>{{ this.machine.title }}</td>
+                                                        <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
+                                                        <td>{{ formatDateToBrTextWithTime this.reservedDate }}</td>
+                                                        {{ #if getReserveStatus }}
+                                                            <td class="text-center" colspan='2'>{{ getReserveStatus }}</td>
+                                                        {{ else }}
+                                                            <td>
+                                                                <button class="btn btn-info editReserveBtn" data-reserveid="{{ this._id }}">Editar</button>
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-danger deleteReserveBtn" data-reserveid="{{ this._id }}">Apagar</button>
+                                                            </td>
+                                                        {{ /if }}
+                                                    </tr>
+                                                {{ /each }}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>

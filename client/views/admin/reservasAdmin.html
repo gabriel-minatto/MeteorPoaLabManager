@@ -1,0 +1,49 @@
+<template name="reservasAdmin">
+
+    <div class="col-xl-12">
+
+        <div class="row">
+
+            <div class="col-lg-3 pl-0">
+                <h3>Reservas</h3>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped table-hover table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Máquina</th>
+                            <th>Criado em</th>
+                            <th>Reservado Para</th>
+                            <th colspan='2'>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{ #each getReservesList }}
+                            <tr>
+                                <td>{{ this.machine.title }}</td>
+                                <td>{{ formatDateToBrTextWithTime this.createdAt }}</td>
+                                <td>{{ formatDateToBrTextWithTime this.reservedDate }}</td>
+                                {{ #if getReserveStatus }}
+                                    <td class="text-center" colspan='2'>{{ getReserveStatus }}</td>
+                                {{ else }}
+                                    <td>
+                                        <button class="btn btn-info acceptReserveBtn" data-reserveid="{{ this._id }}">Aceitar</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger refuseReserveBtn" data-reserveid="{{ this._id }}">Recusar</button>
+                                    </td>
+                                {{ /if }}
+                            </tr>
+                        {{ /each }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</template>

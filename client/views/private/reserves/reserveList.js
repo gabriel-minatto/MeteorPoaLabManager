@@ -25,7 +25,7 @@ Template.reserveList.helpers({
 
     getReserveStatus() {
 
-        if(typeof this.accepted == 'undefined') return "Não avaliado";
+        if(typeof this.accepted == 'undefined') return false;
 
         return this.accepted ? 'Aceito' : 'Recusado';
     }
